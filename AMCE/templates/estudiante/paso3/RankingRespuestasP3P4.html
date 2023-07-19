@@ -1,0 +1,53 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% load filters%}
+
+{% block title %}
+Ranking de respuestas sintetizadas
+{% endblock %}
+
+{% block navbar-title %}
+Ranking de respuestas sintetizadas
+{% endblock %}
+
+{% block content %}
+
+<center>
+    <h1> Tema: {{ temaNombre }} </h1>
+    <h2> Las respuestas están ordenadas de la más votada a la menos votada.</h2>
+</center>
+
+<div class="container-content">
+    <!--mas votada a menos votada-->
+    
+    {% for d in respuestasOrdenadasIdsLista %}
+        <div class = "">
+            <p class="mytextalign"><b>{{preguntasSecLista|get_list_item:forloop.counter0}}</b></p>
+                {% for dd in d %}
+                    <div class="p-2">
+                        <p >• {{dd}}</p>
+                    </div> 
+                {% endfor %}
+        </div>
+    {% endfor %}
+    <br>
+    <center><a class="button-format" href="{% url 'AMCE:InstruccionesPaso4' id_tema=id_tema id_grupo=id_grupo %}">Continuar al siguiente paso</a></center>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

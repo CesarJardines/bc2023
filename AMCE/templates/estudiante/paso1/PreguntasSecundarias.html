@@ -1,0 +1,94 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Preguntas Secundarias
+{% endblock %}
+
+{% block navbar-title %}
+    Preguntas Secundarias
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand ml-3 d-flex w-full justify-content-center"> Preguntas Secundarias</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+<div class="container-content">
+    <h2 class="text-center mt-4">Para el tema {{ temaNombre }}, la pregunta inicial es: {{pregunta.id_pregunta.contenido }}</h2>
+
+    <div class="text-center ">
+        <h2>Plantea {{ noPreguntasSec }} preguntas secundarias</h2>
+        <h3 class="popup h mt-2" id="myBtn">Ejemplo</h3>
+        <br>
+        <form id="form" method="post" class="position-relative mt-2">
+            {% csrf_token %}
+            {% for i in range %}
+            <input class="mb-3" type="text" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                name="preguntaSecundaria" placeholder="¿Esta es mi pregunta secundaria? " required>
+            {% endfor %}
+                &nbsp;
+                <center><button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button></center>
+        </form>
+    </div>
+</div>
+<!-- Modal a desplegar de ingresar código de clase -->
+
+
+<div id="myModal" class="modal" id="id01">
+    <!-- contenido del modal (ingresar código) -->
+    <div class="h-full d-flex flex-column  justify-content-center">
+        <div class="modal-content">
+            <div class="container">
+                <p style="text-align: center;">Las siguientes preguntas son ejemplos de preguntas secundarias que se
+                    pueden hacer para el tema <b>Ciclones tropicales</b></p>
+
+                <ul>
+                    <li>¿Qué es un Ciclón Tropical y cuáles son sus componentes?</li>
+                        <li>¿Qué es una cuenca y cuáles son sus características?</li>
+                            <li>¿Dónde se ubica la Cuenca del Atlántico Norte y cuál es su extensión?</li>
+                                <li>¿Cuáles son las condiciones que debe tener la Cuenca del Atlántico Norte respecto a su temperatura, atmósfera, vientos y latitud para que se formen en ella Ciclones Tropicales?</li>
+                                <li>¿Cuáles son las condiciones que tiene el Atlántico Sur respecto a su temperatura, atmósfera, vientos y latitud que impiden la formación de Ciclones Tropicales?</li>
+                                    <li>¿Cuáles son las etapas de formación de un Ciclón Tropical?</li>
+
+                </ul>
+                &nbsp;
+                <center><button class="button-format close">Entendido</button></center>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () { $("#myModal2").appendTo("body").modal('show'); });
+    $("#myModal2").css("z-index", "1500");
+
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+<!-- JS para bloquear botón-->
+<script src="{%static 'js/scripts.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

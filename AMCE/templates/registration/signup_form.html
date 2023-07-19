@@ -1,0 +1,36 @@
+{% extends "base/base_register.html" %}
+
+{% load static %}
+
+{% block title %}
+    Registro {{ user_type }}
+{% endblock %}
+
+{% block navbar-title %}
+    Registro {{ user_type }}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div class="presentacion margin-top position-relative">
+            <div class="presentacion-container">
+                <div class="registro-muro">
+                    <h2 class="text-center font-Letter title-box">Registro {{ user_type }}</h2>
+                    <form method="post" action="" class="registro-form pb-4 pt-2">
+                        {% include 'base/formulario.html' %}
+                        <button type="submit" class="button-format" id="submit-form" >Registrarse</button>
+                    </form>
+                </div>
+                {% if user_type == "Estudiante" %}
+                <div class="presentacion-img">
+                    <img src="{% static 'assets/images/registro_ alumnos.svg'%}" alt="">
+                </div>
+                {% else %}
+                <div class="presentacion-img">
+                    <img src="{% static 'assets/images/profesor.svg'%}" alt="">
+                </div>
+                {% endif %}
+            </div>
+        </div> 
+    </div>
+{% endblock %}

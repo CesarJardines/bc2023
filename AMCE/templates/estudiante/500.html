@@ -1,0 +1,30 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Error 500 - Error interno
+{% endblock %}
+
+{% block navbar-title %}
+    Error 500 - Error interno
+{% endblock %}
+
+{% block navbar-btn %}
+    <a class="navbar-nav me-2 nav-bar-btn" href="{% url 'AMCE:EstInscribirGrupo' %}" id="inscribir_grupo">
+        <img src="{% static 'assets/images/bt_grupos.png' %}">
+    </a>
+{% endblock %}
+
+{% block grupos-active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Error 500</h1>
+        <p class="lead">Ocurrió un error en el servidor. Por favor, inténtalo de nuevo más tarde.</p>
+        <p>Si el problema persiste, por favor, ponte en contacto al correo <a href="mailto:busquedacolaborativa@gmail.com">busquedacolaborativa@gmail.com</a></p>
+        <p><span class="emoji-error">&#129760;</span></p>
+    </div>
+{% endblock %}

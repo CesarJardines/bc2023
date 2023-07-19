@@ -1,0 +1,67 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Evaluación preguntas secundarias
+{% endblock %}
+
+{% block navbar-title %}
+  Evaluación preguntas secundarias
+{% endblock %}
+
+{% block content %}
+<div class="container-content">
+  <center>
+    <h1 class="mt-4"> Tema: {{ temaNombre }} </h1>
+    <h2 class="mt-4"> Pregunta Inicial: {{ pregunta.id_pregunta.contenido }} </h2>
+    <h2 class="mb-4 mt-4 "> Evalua las preguntas secundarias de tu equipo </h2>
+  </center>
+  <form id="form" method="post" class="align-items-center">
+    {% csrf_token %}
+    <div class="w3-container" style="width: 100%;">
+      {% for i in preguntasSec %}
+      <div >
+        <header>
+          <table style="width:100%">
+            <h3>{{ i.id_pregunta.contenido }}</h3>
+            <div class="btn-group btn-group-toggle " style="width: 100%;" data-toggle="buttons">
+              <label class="btn btn-secondary button-format active checklist">
+                <input type="radio" name="options{{forloop.counter}}" id="megusta" value="3" autocomplete="off"
+                  required>
+                Me gusta
+              </label>
+              <label class="btn btn-secondary button-format checklist">
+                <input type="radio" name="options{{forloop.counter}}" id="noleentiendo" value="-1" autocomplete="off"
+                  required> No le entiendo
+              </label>
+              <label class="btn btn-secondary button-format checklist">
+                <input type="radio" name="options{{forloop.counter}}" id="nomegusta" value="-2" autocomplete="off"
+                  required> No me gusta
+              </label>
+            </div>
+          </table>
+        </header>
+        <br>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-2">
+      <button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+<!-- JS para bloquear botón-->
+<script src="{%static 'js/scripts.js' %}"></script>
+{% endblock %}

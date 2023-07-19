@@ -1,0 +1,51 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Trabajo final
+{% endblock %}
+
+{% block navbar-title %}
+Trabajo final
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>¡Terminaste!</h1>
+    <br>
+    <p>
+        La investigación del equipo: <b>{{nombre_equipo}}</b> ha sido 
+        entregada por el alumno: <b>{{nombre_estudiante}}</b>.
+
+    </p>
+    <br>
+    <center>
+        <a class="button-format" href="{% url 'AMCE:EstMisGrupos' %}">Volver al menú principal</a>
+    </center>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

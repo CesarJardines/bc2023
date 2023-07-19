@@ -1,0 +1,30 @@
+
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    Equipo: {{ equipo_nombre }}
+{% endblock %}
+
+{% block navbar-title %}
+    Equipo: {{ equipo_nombre }}
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-sm-10">
+            <h1>Integrantes:</h1>
+            <!--integrantes-->
+            {% for e in estudiantes_nombres %}
+                <div class="mt-5">
+                    <h3>{{ e }}</h3>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+    
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base/base_sidebar.html" %}
+
+{% load static %}
+
+<!-- 
+    Este template base nos da sidebar ó navbar, se usa para
+    los templates en registration
+-->
+
+{% block extra-css %}{% endblock %}
+
+{% block title %}
+    Registro
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-dark sticky-top w-100 d-flex d-sm-flex d-md-flex d-lg-none">
+        <div class="ms-2 navbar-text d-none d-sm-none d-md-none d-lg-block"></div>
+        <button class="ms-2 navbar-toggler d-block d-sm-block d-md-block d-lg-none" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-brand nav-bar-title abs">
+            {% block navbar-title %}
+                Título
+            {% endblock %}
+        </div>
+        <div class="navbar-text ml-auto nav-bar-btn me-2"></div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-4 mb-2 mb-lg-0">
+                <li class="nav-item {% block grupos-active %}{% endblock %}">
+                    <a class="nav-link" aria-current="page"
+                    href="{% url 'AMCE:index' %}">Iniciar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block sidebar-links %}
+    <div class=" menu-lateral-opciones">
+        <a href="{% url 'AMCE:index' %}">
+            <div class="bg-white login">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black"
+                    class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                    <path fill-rule="evenodd"
+                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+
+            </div>
+            <p class="text-white mt-2" style="font-size: 14px;">Iniciar Sesión</p>
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="presentacion registro position-relative" style="height: 88vh;">
+        <div class="presentacion-container">
+            {% block content-inner%}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

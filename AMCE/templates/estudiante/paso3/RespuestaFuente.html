@@ -1,0 +1,241 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% load filters%}
+
+{% block title %}
+    Respondiendo: Preguntas Secundarias
+{% endblock %}
+
+{% block navbar-title %}
+    Respondiendo: Preguntas Secundarias
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand"> Respondiendo Preguntas Secundarias</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .mybox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px dashed black;
+        padding: 10px;
+    }
+
+    .mysubbox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px solid black;
+        padding: 5px;
+        font-size:8px;
+    }
+
+    .mybold {
+        font-weight: bold;
+        font-size:8px
+    }
+
+    .form-control-xs {
+        height: calc(1em + .375rem + 2px) !important;
+        padding: .125rem .25rem !important;
+        font-size: .75rem !important;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+
+    .center-button {
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<center>
+    <h1> Tema: {{ temaNombre }} </h1>
+    <h2> Responde las preguntas secundarias</h2>
+</center>
+
+<div class="container-content">
+    <div class="text-center mb-3">
+        <h3 class="popup h mt-1" id="myBtn">Ejemplo</h3>
+    </div>
+    <form id="form" method="POST">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    
+    {% for form in formset %}
+        
+        {% for fuente in form.fuentes.field.queryset %}
+            <div class="fuente-obj" data-attribute="{{ fuente.id}} | {{ fuente.enlace}}"></div>
+        {% endfor %}
+
+        <p><b><center>{{preguntasSec|get_list_item:forloop.counter0 }}</center></b></p>
+        
+        {{form}}
+                    
+        <button type="button" class="btn btn-link center-button" onclick="redirectOption('{{form.fuentes.field.queryset.0.enlace}}')">Abrir fuente seleccionada <i class="fa fa-external-link ml-2"></i></button>
+        &nbsp;       
+    {% endfor %}
+    
+    <br>
+    &nbsp;
+        <center><button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button></center>
+    </form>
+</div>
+
+
+<!-- Modal para desplegar el ejemplo -->
+<div id="myModal" class="modal" id="id01">
+    <!-- contenido del modal (ingresar código) -->
+    <div class="modal-content" style=" margin-top: 150px;">
+        <div class="container">
+            
+
+            <div class="mt-5">
+                <p>
+                    <p><small>
+                        En la parte de abajo encontrarás:
+                        <ul>
+                            <li style="font-size:10px">
+                                Una pregunta secundaria seguida de su respectivo cuadro de    
+                                texto donde se espera que des respuesta a dicha pregunta.
+                            </li>
+                            <li style="font-size:10px">
+                                Un cuadro de texto donde se espera que pongas en qué 
+                                párrafo, página, ... de tu referencia encontraste 
+                                tu respuesta.
+                            </li>
+                            <li style="font-size:10px">
+                                Y por último un menú desplegable donde debes seleccionar la 
+                                referencia que utilizaste para dar tu respuesta.
+                            </li>
+                        </ul>  
+                        A continuación se muestra un ejemplo: 
+                    </small></p>                    
+
+                    <div class="mybox">
+                        <center style="font-size:10px">
+                            Tema: ¿Qué es un Ciclón Tropical y cuáles son sus componentes? 
+                            <br>
+                            Responde las preguntas secundarias
+                        </center>
+
+                        <center style="font-size:10px">
+                            
+                            <b>1.</b> ¿Qué es un Ciclón Tropical y cuáles son sus componentes?<br>
+                                <b>2.</b> ¿Qué es una cuenca y cuáles son sus características?
+                        </center>
+
+                        <!-- Respuesta a la pregunta (primer cuadro de texto) -->
+                        <div class="mybold">
+                            Respuesta:
+                        </div>
+                        <div class="mysubbox">
+                           <b> a) </b> 
+                            Los ciclones tropicales son uno de los fenómenos naturales que provocan mayores pérdidas económicas cada año, debido al incremento de los asentamientos humanos en zonas de riesgo y a la degradación ambiental producida por el hombre. Sin embargo, las lluvias que generan los ciclones poseen grandes beneficios ya que se recargan los mantos acuíferos y las presas retienen una cantidad de agua, que es utilizada en las zonas áridas y semiáridas de México, así como para el consumo humano, la agricultura y la generación de energía.<br>
+                            <b>b)</b>  
+                            Es una masa de aire cálida y húmeda con vientos fuertes que giran en forma de espiral alrededor de una zona central. En el hemisferio norte giran en sentido contrario a las manecillas del reloj. Se forman en el mar, cuando la temperatura es superior a los 26o C.
+El poder destructivo de los ciclones tropicales, obliga a que se tomen medidas especiales de seguridad, dado que son fenómenos que se pueden monitorear y pronosticar su trayectoria.<br>
+                            
+                        </div>
+
+                        <!-- Referencia de la fuente (segundo cuadro de texto) -->
+                        <div class="mybold">
+                            Referencia de la fuente:
+                        </div>
+                        <div class="mysubbox">
+                            Página 1 - párrafo 1 y 2 - renglón 1
+                        </div>
+
+                        <!-- Fuentes (menú de tipo select deshabilitado) -->
+                        <div class="mybold">
+                            Fuente:
+                        </div>
+                        <select class="form-select form-select-xs" aria-label=".form-select-sm example" style="font-size: 8px;" disabled>
+                            <option value="1"> 
+                                129-FOLLETOCICLONESTROPICALES.PDF</option>
+                        </select>
+                        </div>
+                </p>
+                &nbsp;
+                <center><button class="button-format close">Entendido</button></center>
+            </div>
+
+
+
+
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    // Obtenemos el botón de continuar el siguiente paso
+    const continuar_btn = document.getElementById('continuar_btn');
+    
+    //Pasamos los objetos fuente en queryset a una variable en html
+    var fuentes = document.getElementsByClassName('fuente-obj');
+    
+    //Obtenemos todos los dropdowns de cada form generado dinamicamente
+    var dropdowns = document.getElementsByClassName('form-select');
+
+    //Agregamos un listener para cada dropdown de cada formulario, para que de esta manera
+    //se actualice el enlace del botón para ver la fuente por cada formulario
+    for (var i = 0; i < dropdowns.length; i++){
+        dropdowns[i].addEventListener("change", handleDropdownChange);
+    }
+
+    //Función que se encarga de hacer la actualización del botón que redirecciona al enlace de la fuente
+    function handleDropdownChange(event) {
+        //Obtenemos la opción seleccionada del dropdown
+        var selectedOption = event.target.value;
+
+        //Iteramos sobre cada fuente hasta encontrar el enlace asociado al value seleccionado en el dropdown
+        var i = 0;
+        while (i < fuentes.length) {
+            //Indicamos que | va a ser nuestro separador de atributos
+            var fuente = fuentes[i].getAttribute('data-attribute').split('|');
+            //fuente es un arreglo de 2 entradas, la primera corresponde a su value (id) y la segunda al enlace de la fuente
+            //Preguntamos si el value de la opción seleccionada corresponde con el que tiene el objeto fuente
+            if(selectedOption == parseInt(fuente[0])){
+                //Indicamos el nuevo enlace del botón que permite ver la fuente
+                event.target.nextElementSibling.setAttribute("onclick", "redirectOption('" + fuente[1] + "')");
+            }
+            ++i;
+        }
+    }
+
+
+    //Función para redireccionar a un enlace
+    function redirectOption(link) {
+        window.open(link);
+    }
+
+    //Desactivamos el botón de continuar para que el usuario no haga multiples peticiones
+    continuar_btn.onclick = function (e) {
+        e.preventDefault();
+        continuar_btn.disabled = true;
+        continuar_btn.innerHTML = "Cargando...";
+        document.getElementById("form").submit();
+    }
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

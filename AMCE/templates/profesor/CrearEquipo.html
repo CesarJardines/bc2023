@@ -1,0 +1,26 @@
+{% extends "profesor/base_formpage.html" %}
+
+{% load static %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/multiselect.css'%}"/>
+    <script src="{%static 'js/multiselect.min.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    Crear Equipo
+{% endblock %}
+
+{% block navbar-title %}
+    Crear Equipo
+{% endblock %}
+
+{% block button_content %}
+    Guardar
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.multiselect('#id_integrantes');
+    </script>
+{% endblock %}

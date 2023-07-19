@@ -1,0 +1,28 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Instrucciones
+{% endblock %}
+
+{% block navbar-title %}
+Instrucciones
+{% endblock %}
+{% block content %}
+
+<div class="container-content">
+    <h1 class="text-center">¡Hora de votar!</h1>
+    Es momento de que votes por las respuestas que consideres que mejor responden a las preguntas secundarias.<br><br>
+    Se mostrará cada respuesta secundaria con sus correspondientes respuestas sintetizadas y debes evaluar cada una asignando almenos una estrella.
+    <center class="mt-5">
+        <a name="profesor" class="button-format"
+            href="{% url 'AMCE:EvaluarRespuestaSintetizada'  id_grupo=id_grupo id_tema=id_tema id_pregunta_id=id_pregunta_id%}" id="submit-form">Continuar al siguiente paso</a>
+    </center>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+
+{% endblock %}

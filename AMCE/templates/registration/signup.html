@@ -1,0 +1,27 @@
+{% extends "base/base_register.html" %}
+
+{% load static %}
+
+{% block title %}
+    Registro
+{% endblock %}
+
+{% block navbar-title %}
+    Registro
+{% endblock %}
+
+{% block content-inner%}
+    <div class="presentacion-muro">
+        <h2 class="text-center font-Letter title-box">Registro</h2>
+        <div class="mt-5">
+            <p class="text-center">¿Que tipo de cuenta quieres crear? </p>
+            <div class="d-flex justify-content-center gap-5 mt-3">
+                <a href="{% url 'AMCE:EstSignup' %}"><button class="button-format">Estudiante</button></a>
+                <a href="{% url 'AMCE:ProfSignup' %}"><button class="button-format">Profesor</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="presentacion-img">
+        <img src="{% static 'assets/images/profes_alumnos.svg'%}" alt="">
+    </div>
+{% endblock %}

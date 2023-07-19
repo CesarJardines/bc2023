@@ -1,0 +1,182 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .mybox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px dashed black;
+        padding: 10px;
+    }
+
+    .mysubbox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px solid black;
+        padding: 5px;
+        font-size: 8px;
+    }
+
+    .mybold {
+        font-weight: bold;
+        font-size: 8px
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Respondiendo: Pregunta Inicial
+{% endblock %}
+
+{% block navbar-title %}
+Respondiendo: Pregunta Inicial
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>Tema: {{nombre_tema}}</h1>
+    <br>
+
+    <h3>Respuestas secundarias elegidas por el equipo:</h3>
+
+    {% for key, values in info_paso3.items %}
+        <b>{{ forloop.counter }}.- {{key}} </b>
+        {% for v in values %}
+        <p>{{v}}</p>
+        {% endfor %}
+    {% endfor %}
+
+
+    <h3>Ahora, deberás dar respuesta a la pregunta inicial.</h3>
+    <div class="text-center mb-3">
+        <h3 class="popup h mt-1" id="myBtn">Ejemplo</h3>
+    </div>
+
+    <div>
+        <i>{{pregunta_inicial}}</i>
+    </div>
+
+    <!-- <b>Respuesta:</b> -->
+
+    <!-- <br> -->
+
+    <!-- <textarea class="form-control mx-2 my-2" id="text-respuesta" rows="8"></textarea> -->
+    <form id="form" method="POST" action="">
+        {% csrf_token %}
+        {{form}}
+        <br>
+        &nbsp;
+        <center><button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button></center>
+        
+    </form>
+
+    <br>
+
+    <!-- <center>
+        <a class="button-format" id="continuar_btn">Continuar al siguiente paso</a>
+    </center> -->
+
+</div>
+
+
+<!-- Modal para desplegar el ejemplo -->
+<div id="myModal" class="modal" id="id01">
+    <!-- Contenido del modal -->
+    <div class="modal-content" style=" margin-top: 150px;">
+        <div class="container">
+            <div class="mt-5">
+                <p><small>
+                        En la parte de abajo encontrarás:
+
+                        <ul>
+                            <li style="font-size:10px">
+                                La pregunta inicial planteada al inicio de la investigación
+                                seguida de su respectivo cuadro de texto donde se espera que
+                                des una respuesta a dicha pregunta con base en las respuestas
+                                dadas a las preguntas secundarias.
+                            </li>
+                        </ul>
+
+                        A continuación se muestra un ejemplo:
+
+                        <br>
+
+                        <div class="mybox">
+
+                            <div style="font-size:10px">
+                                ¿Por qué los Ciclones Tropicales del océano Atlántico golpean los países de Centroamérica y del Caribe y no a los países costeros de Suramérica?
+                            </div>
+                            <div class="mybold">
+                                Respuesta:
+                            </div>
+                            <div class="mysubbox">
+                                Los Ciclones Tropicales golpean los países centroamericanos y del Caribe y no a los países
+costeros de Suramérica principalmente por 2 motivos: <br>
+                                <b>a)</b> Porque los que afectan a los primeros se originan en la Cuenca del Atlántico Norte en
+                                una zona cercana a ellos. Estos ciclones no pueden desplazarse hacia las zonas
+                                cercanas al ecuador o hacia el Hemisferio Sur, porque en estos lugares no se dan las
+                                condiciones ni para su formación ni para sostener el sistema. Por el contrario, este
+                                tipo de fenómenos comienzan siempre su trayectoria desplazándose hacia el
+                                occidente debido a la acción del Cinturón Tropical de Vientos del Este que continúa
+                                luego hacia la zona subtropical contigua al Trópico de Cáncer. En esta zona cambian
+                                de dirección enrutándose hacia el oriente o nororiente gracias tanto a la acción de los
+                                Vientos Oestes presentes en las Latitudes medias como a los Sistemas de alta y baja
+                                presión que los orientan constantemente<br>
+                                Cuando se compran más productos que los disponibles.<br>
+                                <b> b)</b> En el Atlántico Sur no es posible que se originen Ciclones Tropicales porque este
+                                océano no cuenta con dos condiciones necesarias para ello: una temperatura de las
+                                aguas igual o superior a los 26.5o C y un bajo
+                                pequeña entre la velocidad del viento de las partes superiores de la atmósfera y la del
+                                cizallamiento
+                                del viento (diferencia
+                                viento cercano a la superficie del mar)<br>
+                               
+                            </div>
+                        </div>
+                    </small></p>
+            </div>
+            <br>
+            <center><button class="button-format close">Entendido</button></center>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Obtenemos el modal
+    var modal = document.getElementById('id01');
+
+    // Obtenemos el botón de continuar el siguiente paso
+    const continuar_btn = document.getElementById('continuar_btn');
+    
+    //Desactivamos el botón de continuar para que el usuario no haga multiples peticiones
+    continuar_btn.onclick = function (e) {
+        e.preventDefault();
+        continuar_btn.disabled = true;
+        continuar_btn.innerHTML = "Cargando...";
+        document.getElementById("form").submit();
+    }
+
+    
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

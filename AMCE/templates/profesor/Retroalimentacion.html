@@ -1,0 +1,134 @@
+{% extends "profesor/base_formpage.html" %}
+
+{% load static %}
+
+{% block title %}
+    Retroalimentación
+{% endblock %}
+
+{% block navbar-title %}
+    Retroalimentación: {{ tema }} - {{ equipo }}
+{% endblock %}
+
+{% block form-title %}
+    {% if paso == 1 %}
+        <h1>Pregunta inicial</h1>
+        <h5 class="mb-3">{{ paso_ctxt.0.id_pregunta }}</h5>
+    {% elif paso == 2 %}
+        <h1>Preguntas secundarias</h1>
+        <ul class="mb-3">
+            {% for s in paso_ctxt %}
+                <li><h5>{{ s.id_pregunta }}</h5></li>
+            {% endfor %}
+        </ul>
+    {% elif paso == 3 %}
+        <h1>Buscar y evaluar fuentes</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Fecha de publicación</th>
+                <th>Lugar de publicación</th>
+                <th>Tipo</th>
+            </tr>
+            </thead>
+            {% for i in fuentes %}
+            <tbody>
+                <tr>
+                <td>
+                    <a target=”_blank” href="{{ i.enlace }}">
+                        {{ i.titulo }}
+                        <span class="material-symbols-outlined">
+                            open_in_new
+                        </span>
+                    </a>
+                </td>
+                <td>{{ i.autor }}</td>
+                <td>{{ i.fecha_publicacion }}</td>
+                <td>{{ i.lugar }}</td>
+                <td>{{ i.tipo_fuente }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    {% elif paso == 4 %}
+        <h1>Análisis de la información</h1>
+        <div class="list-group">
+            <div class="list-group-item">
+                <h5 class="mb-1">¿Qué son las Tics?</h5>
+                
+                <b class="ms-2">Fuente:</b>
+                <p class="ms-3 mb-1">
+                    <i>Las Tecnologías de la información y comunicación (T.I.C)</i>
+                </p>
+
+                <b class="ms-2">Referencia de la fuente:</b>
+                <p class="ms-3 mb-1">
+                    Pag 3 Párrafo 2
+                </p>
+
+                <b class="ms-2">Respuesta de la fuente:</b>
+                <p class="ms-3 mb-1">
+                    “En líneas generales podríamos decir que las nuevas tecnologías de la
+                    información y comunicación son las que giran en torno a tres medios básicos: la
+                    informática, la microelectrónica y las telecomunicaciones; pero giran, no sólo de
+                    forma aislada, sino lo que es más significativo de manera interactiva e
+                    interconexionadas, lo que permite conseguir nuevas realidades comunicativas”.
+                    (Cabero, 1998: 198)
+                </p>
+
+                <b class="ms-2">Síntesis:</b>
+                <p class="ms-3 mb-1">
+                    Las nuevas TIC pueden dividirse según el medio en torno al que giran: informática, microelectrónica y telecomunicaciones.
+                    Los tres grupos no son mutuamente exclusivos ya que es común que una tecnología utilice más de un medio.
+                </p>
+            </div>
+            <div class="list-group-item">
+                <h5 class="mb-1">¿Cuál es el origen de las Tics?</h5>
+                
+                <b class="ms-2">Fuente:</b>
+                <p class="ms-3 mb-1">
+                    <i>Conociendo las TIC</i>
+                </p>
+
+                <b class="ms-2">Referencia de la fuente:</b>
+                <p class="ms-3 mb-1">
+                    Pag 3 Párrafo 2
+                </p>
+
+                <b class="ms-2">Respuesta de la fuente:</b>
+                <p class="ms-3 mb-1">
+                    Hace 5.000 años, egipcios y sumerios comienzan a registrar
+                    información en soportes físicos transportables, los que permiten
+                    establecer una comunicación entre los seres humanos, comenzando de
+                    esta manera la era de las TIC. Estos soportes han evolucionado a
+                    través de la historia del hombre en relación a los avances industriales,
+                    técnicos y científicos, manteniendo la comunicación como hilo
+                    conductor en cada uno de ellos a pesar del cambio de lenguaje. En un
+                    inicio, se contaba con ideogramas y pictogramas, evolucionando con
+                    el tiempo a diferentes alfabetos y lenguajes gráficos
+                </p>
+
+                <b class="ms-2">Síntesis:</b>
+                <p class="ms-3 mb-1">
+                    Se puede considerar que las TIC surgieron como herramienta para la comunicación hace alrededor de 5 siglos.
+                    Aunque hoy en día relacionemos el término TIC con herramientas digitales, en sus inicios consistían de componentes sencillos como papel o piedras grabadas.
+                </p>
+            </div>
+        </div>
+    {% elif paso == 5 %}
+        <h1>Sintetizar y utilizar la información</h1>
+        <a target="_blank" href="https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxldGFwYXNkZWRlc2Fycm9sbG90ZWNub2xvZ2ljb3xneDoyMDQ0NjQ0YWNhNjJiNTAy">Enlace al entregable 
+            <span class="material-symbols-outlined">
+                open_in_new
+            </span>
+        </a>
+    {% elif paso == 6 %}
+        <h1>Retroalimentación general del proceso de investigación</h1>
+    {% endif %}
+{% endblock %}
+
+{% block button_content %}
+    Enviar retroalimentación
+{% endblock %}

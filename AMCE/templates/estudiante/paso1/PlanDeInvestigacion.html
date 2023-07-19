@@ -1,0 +1,57 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Plan de investigación
+{% endblock %}
+
+{% block navbar-title %}
+Plan de investigación
+{% endblock %}
+
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand ml-3 d-flex w-full justify-content-center"> Plan de investigación</div>
+{% endblock %}
+
+{% block content %}
+<div class="text-center container-content">
+    <h2>La investigación del tema {{ temaNombre }} ha quedado definida por las siguientes preguntas:</h2>
+    <h3 class="mt-4">Pregunta Inicial:</h3>
+    <ul class="mt-4">
+        <li>
+           {{ pregunta.id_pregunta.contenido }}
+        </li>
+    </ul>
+    <h3 class="mt-4">Preguntas Secundarias:</h3>
+    <ul class="mt-4">
+        {% for i in preguntasSecGanadas %}
+        <li>
+            {{ i.id_pregunta.contenido }}
+        </li>
+        {% endfor %}
+    </ul>
+    <center>
+        <a name="profesor" class="button-format mt-5" class="close"
+            href="{% url 'AMCE:seleccionFuentes' id_grupo=id_grupo id_tema=id_tema %}">Continuar al siguiente paso</a>
+    </center>
+
+</div>
+<!-- Modal a desplegar de ingresar código de clase -->
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

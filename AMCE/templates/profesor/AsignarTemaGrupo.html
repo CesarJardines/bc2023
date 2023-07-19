@@ -1,0 +1,27 @@
+{% extends "profesor/base_formpage.html" %}
+
+{% load static %}
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'css/multiselect.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/AsignarTemaGrupo.css'%}"/>
+    <script src="{%static 'js/multiselect.min.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    Asignar Tema
+{% endblock %}
+
+{% block navbar-title %}
+    Asignar Tema
+{% endblock %}
+
+{% block button_content %}
+    Asignar
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.multiselect('#id_equipos');
+    </script>
+{% endblock %}

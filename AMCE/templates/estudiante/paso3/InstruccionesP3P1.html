@@ -1,0 +1,33 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Instrucciones
+{% endblock %}
+
+{% block navbar-title %}
+Instrucciones
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1 class="text-center">¡Enhorabuena!</h1>
+    De las fuentes seleccionadas por el equipo, deberás leer cuidadosamente los
+    contenidos para que posteriormente localices y selecciones los datos que te ayuden a responder las preguntas secundarias.<br>
+    <br>
+    En esta primera etapa responderás copiando y pegando la información (tal cual se muestra en la fuente), especificando de donde sacaste la respuesta, es decir, de que párrafos y renglones.
+    <center class="mt-5">
+        <a name="profesor" class="button-format"
+        href="{% url 'AMCE:RespuestaFuente'  id_grupo=id_grupo id_tema=id_tema%}" id="submit-form">Continuar al
+            siguente paso</a>
+    </center>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+
+{% endblock %}

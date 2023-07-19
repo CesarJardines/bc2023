@@ -1,0 +1,87 @@
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+{% block extra-css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ProfPaginaGrupo.css'%}">
+{% endblock %}
+
+{% block title %}
+    Grupo: {{ grupo }}
+{% endblock %}
+
+{% block navbar-title %}
+    Grupo: {{ grupo }}
+{% endblock %}
+
+{% block content %}
+    <ul class="nav " id="tabsGrupo" role="tablist">
+        <li class="nav-item h4" role="presentation" onclick="changebg('#547d7d')">
+            <button class="nav-link {% if not redirect %}active{% endif %} px-5 py-3" id="temas-tab" data-bs-toggle="tab" data-bs-target="#temas" type="button" role="tab" aria-controls="temas" aria-selected="true">Temas Asignados</button>
+        </li>
+        <li class="nav-item h4" role="presentation" onclick="changebg('#7cb5b5')">
+            <button class="nav-link {% if redirect %}active{% endif %} px-5 py-3" id="equipos-tab" data-bs-toggle="tab" data-bs-target="#equipos" type="button" role="tab" aria-controls="equipos" aria-selected="false">Equipos</button>
+        </li>
+    </ul>
+    <div class="tab-content px-4 py-5" id="tab-content">
+        <div class="tab-pane fade {% if not redirect %}show active{% endif %}" id="temas" role="tabpanel" aria-labelledby="temas-tab">
+   
+            <a class="button-format"  href="{% url 'AMCE:ProfAsignarTemaGrupo' id_grupo=id_grupo %}" id="asignar_tema">Asignar Tema</a>
+            
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content mt-5">
+                {% for t in temas %}
+                <div class="col mb-4">
+                    <a href="{% url 'AMCE:ProfTemaAsignado' id_grupo=id_grupo id_tema=t.id_tema%}">
+                        <div class="card h-100" >
+                            <!-- Detalles del tema -->
+                            <div class="card-body p-4">
+                                <div>
+                                    <h2 class="m-0 text-center">{{t.nombre_tema}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="tab-pane fade {% if redirect %}show active{% endif %}" id="equipos" role="tabpanel" aria-labelledby="equipos-tab">
+            <a class="button-format"   href="{% url 'AMCE:ProfCrearEquipo' id_grupo=id_grupo %}" id="crear_equipo">Crear Equipo</a>
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content mt-5">
+                {% for e in equipos %}
+                <div class="col mb-4">
+                    <a href="{% url 'AMCE:ProfPaginaEquipo' id_grupo=id_grupo id_equipo=e.id_equipo%}">
+                        <div class="card no-hover h-100">
+                            <div class="card-body p-4">
+                                <div class="mis-temas">
+                                    <h2 class="m-0 text-center">{{ e.nombre_equipo }}</h2>
+                                    <a class="" href="{% url 'AMCE:ProfEditarEquipo' id_grupo=id_grupo id_equipo=e.id_equipo%}">
+                                        <img class="mis-grupos-edit" src="{% static 'assets/images/bt_editar.png'%}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.body.onload = function() {
+        color = "#547d7d"
+        if (document.getElementById("equipos-tab").classList.contains("active"))
+            color = "#7cb5b5"
+        document.getElementById("tab-content").style.backgroundColor  = color;
+    }
+
+    function changebg(color) {
+      document.getElementById("tab-content").style.backgroundColor  = color;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "profesor/base_formpage.html" %}
+
+{% load static %}
+
+
+{% block title %}
+  Editar Equipo
+{% endblock %}
+
+{% block navbar-title %}
+  Editar Equipo
+{% endblock %}
+
+{% block form-button %}
+  <a data-bs-toggle="modal" data-bs-target="#delete-item-modal">
+      <button class="button-format w-auto" style="float: right; background-color: #dc3545; color: white;" >Eliminar Equipo</button>
+  </a>
+{% endblock %}
+
+{% block button_content %}
+    Editar Equipo
+{% endblock %}
+
+{% block scripts %}
+
+<div class="modal" tabindex="-1" id="delete-item-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="container-fluid">
+              ¿Estás seguro que quieres eliminar este equipo? <br>
+              Esta acción no puede revertirse.
+          </div>
+      </div>
+      <div class="modal-footer">
+          <a  class="btn btn-secondary mr-1" data-dismiss="modal" href="">Cancelar</a>
+          <a class="btn btn-danger" id="redireccion" href="{% url 'AMCE:ProfEliminaEquipo' id_grupo=id_grupo id_equipo=id_equipo %}">Confirmar</a>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

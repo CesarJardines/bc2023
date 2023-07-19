@@ -1,0 +1,35 @@
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Tema Asignado: {{ grupo }} - {{ tema }}
+{% endblock %}
+
+{% block navbar-title %}
+    Tema Asignado: {{ grupo }} - {{ tema }}
+{% endblock %}
+
+{% block content %}
+    <a class="button-format w-full" href="{% url 'AMCE:ProfProgresoGrupo' id_grupo=grupo.id_grupo id_tema=tema.id_tema %}">Ver progreso de todos los equipos</a>
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content">
+        <!--Equipos-->
+        {% for e in equipos %}
+        <div class="col mt-4">
+            <a href="{% url 'AMCE:ProfProgresoEquipo' id_grupo=grupo.id_grupo id_tema=tema.id_tema id_equipo=e.id_equipo %}">
+                <div class="card h-100" >
+                    <!-- Detalles del tema -->
+                    <div class="card-body p-4">
+                        <div>
+                            <h2 class="m-0 text-center">{{e.nombre_equipo}}</h2>
+                            <div class="text-center"> Paso actual: {{e.paso}} </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

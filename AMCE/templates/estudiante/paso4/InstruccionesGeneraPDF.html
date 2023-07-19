@@ -1,0 +1,71 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Instrucciones
+{% endblock %}
+
+{% block navbar-title %}
+Instrucciones
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>¡A trabajar!</h1>
+
+    <p>
+        Organízate con tus compañeros de equipo y en colaboración deberán generar un producto que 
+        demuestre todo lo aprendido, por lo que deberán ayudarse de las respuestas dadas en pasos
+        anteriores.
+        <br>
+        Podrán usar cualquier herramienta externa que deseen, mientras únicamente anexen el link.
+    </p>
+
+    <p>
+        El producto que tu profesor a elegido es:
+
+        <!-- Será modificado con la respuesta a una consulta sobre lo que el profesor le pidió al equipo: -->
+        <ul>
+            <li>{{entregable}}</li>
+        </ul>
+    </p>
+
+    <p>
+        Descarga el siguiente pdf que contiene toda la información recopilada de tu investigación: 
+
+        <!-- Cambiar liga para generalizarla -->
+        <ul>
+            <li><a href="{% url 'AMCE:GeneraInvestigacionPDF' id_tema=id_tema id_grupo=id_grupo %}" target="_new">Abrir pdf</a></li>
+        </ul>
+    </p>
+
+    <center>
+        <a class="button-format" href="{% url 'AMCE:TrabajoFinal' id_tema=id_tema id_grupo=id_grupo %}">Continuar al siguiente paso</a>
+    </center>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

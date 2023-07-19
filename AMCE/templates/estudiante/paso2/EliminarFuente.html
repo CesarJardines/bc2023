@@ -1,0 +1,55 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+   
+
+
+{% block extra-css %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Capriola&display=swap%27');
+    </style>
+    <link href="{% static 'css/DragAndDrop.css'%}" rel="stylesheet"/>
+    
+{% endblock %}
+
+{% block title %}
+    Eliminar Fuente
+{% endblock %}
+
+{% block header_ctxt %}
+    <div class="nav-bar-title navbar-brand ml-3"> Busqueda de fuentes</div>
+    <a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<h1>Eliminar Fuente</h1>
+
+<form method="POST"> {% csrf_token %}
+    <p>¿Estas seguro de eliminar esta fuente?</p>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="font-family: 'Capriola'; position: absolute; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">&copy; ICAT | UNAM</p>
+  </footer>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
+
+
+
+<h1>Eliminar Fuente</h1>
+
+<form method="POST"> {% csrf_token %}
+    <p>¿Estas seguro de eliminar esta fuente?</p>
+    <button type="submit">Eliminar</button>
+</form>

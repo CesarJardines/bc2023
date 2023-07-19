@@ -1,0 +1,11 @@
+#id_tema{
+    width: 100%;
+    height: 34px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+#id_tema option{
+    font-size: 13px;
+    width: inherit;
+}

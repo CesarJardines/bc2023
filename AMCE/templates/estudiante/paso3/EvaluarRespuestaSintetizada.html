@@ -1,0 +1,373 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% load filters%}
+
+{% block title %}
+Paso3
+{% endblock %}
+
+{% block navbar-title %}
+    Evaluando Respuestas Sintetizadas
+{% endblock %}
+
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand"> Respondiendo Preguntas Secundarias</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .mytextalign {
+        text-align: justify;
+        padding-left: .5cm;
+        padding-right: .5cm;
+    }
+
+    .mytextalign2 {
+        padding-top: .2cm;
+        text-align: center;
+        padding-bottom: .2cm;
+    }
+
+    .mytextalign3 {
+        text-align: center;
+    }
+
+    .rating-list li {
+        float: right;
+        /* color: #ddd; */
+        padding: 10px 5px;
+    }
+
+    .star-white {
+        color: #ddd;
+    }
+
+    .star-yellow {
+        color: #ffd700;
+    }
+
+    .rating-list {
+        display: inline-block;
+        list-style: none;
+    }
+
+    .mybox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px dashed black;
+        padding: 10px;
+    }
+
+    .mysubbox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px solid black;
+        padding: 5px;
+        font-size:8px;
+    }
+
+    .mybold {
+        font-weight: bold;
+        font-size:8px
+    }
+
+    .form-control-xs {
+        height: calc(1em + .375rem + 2px) !important;
+        padding: .125rem .25rem !important;
+        font-size: .75rem !important;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+
+    .modal-estrellita{
+    background-color: white;
+    height: 200px;
+    width: 300px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.modal-estrellita p {
+    color: black;
+}
+
+.modal-estrellita button{
+    background: #00d0a0;
+    color: white;
+}
+
+.exampleModal{
+        display: none;
+    }
+
+.ExampleClose{
+    font-size: 16px;
+    float: none;
+    display: flex;
+    justify-content: none;
+    color: rgb(0, 0, 0);
+    background-color: #00d0a0;
+    border: 0px;
+    border-radius: 0;
+    padding: 10px 26px;
+    text-decoration: none;
+    width: max-content;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+</style>
+
+<center>
+    <h1> Tema: {{ temaNombre }} </h1>
+    <h2> Evalúa las respuestas sintetizadas de tus compañeros a la siguiente pregunta secundaria:</h2>
+</center>
+
+<div class="container-content">
+    Evalúa las respuestas sintetizadas de tus compañeros a la siguiente pregunta secundaria:
+
+    <div class="text-center mb-3">
+        <h3 class="popup h mt-3" id="ExampleMyBtn">Ejemplo</h3>
+    </div>
+
+
+
+    <div class="text-center"><i><b>{{preguntaSec}}</b></i></div>
+    
+    {% for d in resp_sintet_lista %}
+        <div class="pt-4">
+            <p style="text-align: justify;">{{d}}</p> 
+            <div class="mytextalign3">
+                <ul class="list-inline rating-list" id = "rating-{{ forloop.counter0 }}">
+                    <li onclick="rate(5,{{respuestas_sintetizadas_ids|get_list_item_id_resp:forloop.counter0}},{{ forloop.counter0 }})" class = "star-white"><i class="fa fa-star fa-2x" title="Rate 5"></i></li>
+                    <li onclick="rate(4,{{respuestas_sintetizadas_ids|get_list_item_id_resp:forloop.counter0}},{{ forloop.counter0 }})" class = "star-white"><i class="fa fa-star fa-2x" title="Rate 4" ></i></li>
+                    <li onclick="rate(3,{{respuestas_sintetizadas_ids|get_list_item_id_resp:forloop.counter0}},{{ forloop.counter0 }})" class = "star-white"><i class="fa fa-star fa-2x" title="Rate 3" ></i></li>
+                    <li onclick="rate(2,{{respuestas_sintetizadas_ids|get_list_item_id_resp:forloop.counter0}},{{ forloop.counter0 }})" class = "star-white"><i class="fa fa-star fa-2x" title="Rate 2" ></i></li>
+                    <li onclick="rate(1,{{respuestas_sintetizadas_ids|get_list_item_id_resp:forloop.counter0}},{{ forloop.counter0 }})" class = "star-white"><i class="fa fa-star fa-2x" title="Rate 1" ></i></li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+        
+    <center><button id="continuar_btn" class="button-format">Continuar al siguiente paso</button></center>
+        
+</div>
+
+
+                                       
+
+<!-- Modal para desplegar el ejemplo -->
+<div id="exampleMyModal" class="exampleModal modal">
+    <!-- contenido del modal (ingresar código) -->
+    <div class="modal-content" style=" margin-top: 150px;">
+        <div >
+            
+            <div class="mt-5">
+                    <p>
+                        En la parte de abajo encontrarás:
+                        <ul>
+                            <li>
+                                Una pregunta secundaria seguida de sus respuestas sintetizadas.
+                            </li>
+                            <li>
+                                Cada respusta cuenta con una evaluación de una a cinco estrellitas.
+                            </li>
+                            <li>
+                                Todas las respuestas deben ser evaluadas con almenos una estrellita.
+                            </li>
+                        </ul>  
+                    <div class="">
+                        <center>
+                            Tema: Ciclones tropicales 
+                            <br>
+                            Evalúa las respuestas sintetizadas de tus compañeros a la siguiente pregunta secundaria:
+                        </center>
+                        <br>
+                        <center>
+                            <p><b>Pregunta Qué es un Ciclón Tropical y cuáles son sus componentes? de angel</b></p>
+                            <p class="m-0 mytextalign">Los ciclones tropicales son un fenómeno natural que pueden causar grandes pérdidas económicas debido a la creciente urbanización en zonas de riesgo y la degradación ambiental. Sin embargo, las lluvias que generan pueden recargar los mantos acuíferos y abastecer a las zonas áridas y semiáridas de México. Los ciclones tropicales son una masa de aire cálida y húmeda con vientos fuertes que giran en forma de espiral alrededor de una zona central, formándose en el mar cuando la temperatura es superior a 26o C. A pesar de que tienen un gran poder destructivo, se pueden monitorear y pronosticar su trayectoria, lo que obliga a tomar medidas especiales de seguridad para evitar mayores daños. </p> 
+                            <div class="mytextalign3">
+                                <ul class="list-inline rating-list">
+                                    <li class = "star-white"><i class="fa fa-star " title=""></i></li>
+                                    <li class = "star-white"><i class="fa fa-star" title="" ></i></li>
+                                    <li class = "star-white"><i class="fa fa-star" title="" ></i></li>
+                                    <li class = "star-yellow"><i class="fa fa-star" title="" ></i></li>
+                                    <li class = "star-yellow"><i class="fa fa-star" title="" ></i></li>
+                                </ul>
+                            </div>
+                        </center>
+
+
+                    </div>
+                    </p> 
+            </div>
+            &nbsp;
+            <center><button type="button" class="ExampleClose" >Entendido</button></center>
+        </div>
+    </div>
+</div>
+
+<div id="modal-estrellita" class="d-none position-fixed modal-estrellita text-center">
+    <div class="p-3">
+        <p>¡Tienes que dar a cada respuesta por lo menos una estrella!</p>    
+        <button id="modal-estrellita-close" class="btn">Entendido</button>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+
+    let exampleMyModal = document.getElementById('exampleMyModal')
+
+    let exampleModal = document.getElementsByClassName('exampleModal')[0]
+
+    let ExampleMyBtn = document.getElementById('ExampleMyBtn')
+
+    let ExampleClose = document.getElementsByClassName('ExampleClose')[0]
+
+    // When the user clicks on the button, open the modal 
+
+    ExampleMyBtn.addEventListener("click", ()=>{
+        exampleModal.style.display = "block";
+    })
+
+    ExampleClose.addEventListener("click", ()=>{
+        exampleMyModal.style.display = "none"
+    })
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == exampleMyModal) {
+        exampleModal.style.display = "none";
+    }
+    }
+
+    // Get the modal
+    //------------------------
+    const respuesta_rating = new Map();
+    const rate = (rating, respuesta_id, index) => {
+        respuesta_rating.set(respuesta_id, rating);
+        console.log(respuesta_rating);
+         //Sirve para controlar el color de las estrellitas
+        let ul = document.getElementById("rating-"+index)
+        let items = ul.children
+        for(let i=4; i >= 0; i--){
+            if(4-i < rating){
+                items[i].classList.remove("star-white");
+                items[i].classList.add("star-yellow");
+            }else{
+                items[i].classList.remove("star-yellow");
+                items[i].classList.add("star-white");
+            }
+        }
+    }
+    function mapToObject    (inputMap) {
+        let obj = {};
+        let contador = 0;
+        inputMap.forEach(function(value, key){
+            obj[key] = value
+            contador += 1;
+        });
+        if(contador != "{{ numIntegrantes }}"){
+            // console.log("El contador es distintp" + contador)
+            // alert("El contador es distinto")
+            // return;
+            modalOpen =  document.getElementById("modal-estrellita")
+            modalOpen.classList.remove("d-none")
+            modalOpen.classList.add("d-flex")
+
+            modalClose = document.getElementById("modal-estrellita-close")
+            modalClose.addEventListener("click", () => {
+                modalOpen.classList.add("d-none")
+            })
+
+
+            
+            return;
+
+        }else{
+    
+        }
+        console.log("Numero de integrantes del equipo: " + "{{ numIntegrantes }}")
+        
+        return obj;
+    }
+    const continuar_btn = document.getElementById('continuar_btn');
+    
+    continuar_btn.onclick = async function(e) {
+        
+
+        continuar_btn.classList.add("bloquear-boton")
+
+        let modalClose = document.getElementById("modal-estrellita-close")
+
+        modalClose.addEventListener("click", ()=> {
+            continuar_btn.classList.remove("bloquear-boton")  
+        })
+
+        console.log('continuar');
+        console.log('Holaaaaaaa')
+        var data = mapToObject(respuesta_rating);
+        var grupo= "{{id_grupo}}";
+        var tema = "{{id_tema}}";
+        var id_pregunta = "{{id_pregunta_id}}";
+        const url = id_pregunta;
+        const body_data = {
+            'ratings': data
+        }
+        console.log(body_data)
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify(body_data),
+        })
+        .then(async response => { //Recibimos la respuesta de django para saber como refrescar la page.
+            let res = await response.json()  //Obtejemos el response_data
+            console.log("termina la función", res)
+            id_pregunta = res.id_pregunta_id
+            id_grupo = res.id_grupo
+            id_tema = res.id_tema
+            let ultimo = res.ultimo
+            if(ultimo){  //Si ya es el ultimo, redirige a la función del AvisoNoContinuarP3P3
+                redirectUrl = "{% url 'AMCE:AvisoNoContinuarP3P3' id_grupo id_tema %}"
+                console.log("ultimo = true", ultimo)
+            } else {  //Si no, manda a la url que corresponde al id que recibimos.
+                redirectUrl = "/estudiante/Grupo/"+id_grupo+"/Tema/"+id_tema+"/EvaluarRespuestaSintetizada/" + id_pregunta
+                console.log("ultimo=false", ultimo)
+            }
+            //console.log("http:aaaa/234/redirectUrl/", id_pregunta)
+            window.location.href = redirectUrl;
+            
+            //Bloqueo botón para evitar multiples peticiones
+            e.preventDefault();
+            continuar_btn.disabled = true;
+            continuar_btn.innerHTML = "Cargando...";
+        })
+
+        
+    }
+    //-------------------------
+    
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}

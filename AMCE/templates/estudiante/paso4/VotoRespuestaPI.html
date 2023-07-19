@@ -1,0 +1,399 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Votación a las respuestas de la pregunta inicial
+{% endblock %}
+
+{% block navbar-title %}
+Votación a las respuestas de la pregunta inicial
+{% endblock %}
+
+{% block content %}
+<style>
+    .mytextalign {
+        text-align: justify;
+        padding-left: .5cm;
+        padding-right: 1.5cm;
+    }
+
+    .mytextalign2 {
+        padding-top: .2cm;
+        text-align: center;
+        padding-bottom: .2cm;
+    }
+
+    .mytextalign3 {
+        text-align: center;
+    }
+
+    .rating-list li {
+        float: right;
+        /* color: #ddd; */
+        padding: 10px 5px;
+    }
+
+    .star-white {
+        color: #ddd;
+    }
+
+    .star-yellow {
+        color: #ffd700;
+    }
+
+    .rating-list {
+        display: inline-block;
+        list-style: none;
+    }
+
+    .mybox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px dashed black;
+        padding: 10px;
+    }
+
+    .mysubbox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px solid black;
+        padding: 5px;
+        font-size: 8px;
+    }
+
+    .mybold {
+        font-weight: bold;
+        font-size: 8px
+    }
+
+    .form-control-xs {
+        height: calc(1em + .375rem + 2px) !important;
+        padding: .125rem .25rem !important;
+        font-size: .75rem !important;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+
+    .modal-estrellita {
+        background-color: white;
+        height: 200px;
+        width: 300px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .modal-estrellita p {
+        color: black;
+    }
+
+    .modal-estrellita button {
+        background: #00d0a0;
+        color: white;
+    }
+
+    .ExampleClose{
+        font-size: 16px;
+        float: none;
+        display: flex;
+        justify-content: none;
+        color: rgb(0, 0, 0);
+        background-color: #00d0a0;
+        border: 0px;
+        border-radius: 0;
+        padding: 10px 26px;
+        text-decoration: none;
+        width: max-content;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
+
+<h1> Equipo: {{nombre_equipo}} </h1>
+<h1> Tema: {{tema_nombre}} </h1>
+
+<div class="container-content">
+    <p>
+        Evalúa las respuestas a la pregunta inicial de tus compañeros de equipo.
+        <br>
+        A continuación se muestra un ejemplo:
+    <div class="text-center mb-3">
+        <h3 class="popup h mt-1" id="myBtn">Ejemplo</h3>
+    </div>
+    </p>
+
+    <!-- <h2> Evalúa las respuestas a la pregunta inicial de tus compañeros de equipo:</h2> -->
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <!-- -------------------- Obtenido del paso 3 -------------------- -->
+    <!-- ------------------------------------------------------------- -->
+
+
+    <div>
+        Recuerda que la pregunta inicial de tu equipo es: <b>{{pregunta}}</b>
+    </div>
+    <br>
+
+    {% for r in respuestas %}
+    <div>
+        <div>
+            Respuesta {{ forloop.counter }}:
+            <!-- Mostramos el contenido del objeto Respuesta. -->
+            <p class="m-0 mytextalign">{{r.contenido}}</p>
+        </div>
+        <div class="mytextalign3">
+            <ul class="list-inline rating-list" id="rating-{{ forloop.counter0 }}">
+                <li onclick="rate(5,{{r.id_actividad}},{{ forloop.counter0 }})" class="star-white"><i
+                        class="fa fa-star fa-2x" title="Rate 5"></i></li>
+                <li onclick="rate(4,{{r.id_actividad}},{{ forloop.counter0 }})" class="star-white"><i
+                        class="fa fa-star fa-2x" title="Rate 4"></i></li>
+                <li onclick="rate(3,{{r.id_actividad}},{{ forloop.counter0 }})" class="star-white"><i
+                        class="fa fa-star fa-2x" title="Rate 3"></i></li>
+                <li onclick="rate(2,{{r.id_actividad}},{{ forloop.counter0 }})" class="star-white"><i
+                        class="fa fa-star fa-2x" title="Rate 2"></i></li>
+                <li onclick="rate(1,{{r.id_actividad}},{{ forloop.counter0 }})" class="star-white"><i
+                        class="fa fa-star fa-2x" title="Rate 1"></i></li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    &nbsp;
+    <center><button id="continuar_btn" class="button-format">Continuar al siguiente paso</button></center>
+    
+
+
+    <!-- Modal para desplegar el ejemplo -->
+    <div id="myModal" class="modal" id="id01">
+        <!-- contenido del modal (ingresar código) -->
+        <div class="modal-content" style=" margin-top: 150px;">
+            <div class="container">
+                
+                <div class="mt-5">
+                    <p><small>
+                            En la parte de abajo encontrarás:
+                            <ul>
+                                <li style="font-size:10px">
+                                    La pregunta inicial.
+                                </li>
+                                <li style="font-size:10px">
+                                    Las distintas respuestas que dio el equipo a la pregunta inicial.
+                                </li>
+                                <li style="font-size:10px">
+                                    Cada respuesta cuenta con una evaluación de una a cinco estrellas,
+                                    debes dar tu voto a cada una de ellas.
+                                    <br>
+                                    <i>Nota: Las respuestas deben ser evaluadas con al menos una estrella.</i>
+                                </li>
+                            </ul>
+                            <div class="">
+                                <center style="font-size:10px">
+                                    Recuerda que la pregunta inicial de tu equipo es: <b>¿Por qué los Ciclones Tropicales del océano Atlántico golpean los países de Centroamérica y del Caribe y no a los países costeros de Suramérica?</b>
+                                    <p class="m-0 mytextalign" style="font-size: 0.6rem;">Respuesta 1:</p>
+                                    <p class="m-0 mytextalign" style="font-size: 0.6rem;">
+                                        Estos ciclones no pueden desplazarse hacia las zonas
+cercanas al ecuador o hacia el Hemisferio Sur, porque en estos lugares no se dan las
+condiciones ni para su formación ni para sostener el sistema. Por el contrario, este
+tipo de fenómenos comienzan siempre su trayectoria desplazándose hacia el
+occidente debido a la acción del Cinturón Tropical de Vientos del Este que continúa
+luego hacia la zona subtropical contigua al Trópico de Cáncer. En esta zona cambian
+de dirección enrutándose hacia el oriente o nororiente gracias tanto a la acción de los
+Vientos Oestes presentes en las Latitudes medias como a los Sistemas de alta y baja
+presión que los orientan constantemente.
+                                    </p>
+                                    <div class="mytextalign3">
+                                        <ul class="list-inline rating-list">
+                                            <li class="star-white"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-white"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-white"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                        </ul>
+                                    </div>
+                                </center>
+                                <center style="font-size:10px">
+                                    <p class="m-0 mytextalign" style="font-size: 0.6rem;">Respuesta 2:</p>
+                                    <p class="m-0 mytextalign" style="font-size: 0.6rem;">
+                                        una temperatura de las
+aguas igual o superior a los 26.5o C y un bajo
+pequeña entre la velocidad del viento de las partes superiores de la atmósfera y la del
+cizallamiento
+del viento (diferencia
+viento cercano a la superficie del mar)
+                                    </p>
+                                    <div class="mytextalign3">
+                                        <ul class="list-inline rating-list">
+                                            <li class="star-white"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                            <li class="star-yellow"><i class="fa fa-star fa-lg" title=""></i></li>
+                                        </ul>
+                                    </div>
+                                </center>
+
+                            </div>
+                        </small></p>
+                </div>
+                &nbsp;
+                <center><button type="button" class="ExampleClose" >Entendido</button></center>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-estrellita" class="d-none position-fixed modal-estrellita text-center">
+        <div class="p-3">
+            <p>¡Tienes que dar a cada respuesta por lo menos una estrella!</p>
+            <button id="modal-estrellita-close" class="btn">Entendido</button>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------- -->
+
+</div>
+
+
+
+<script>
+    // Diccionario para almacenar los votos de cada respuesta
+    const respuesta_rating = new Map();
+
+    let ExampleClose = document.getElementsByClassName('ExampleClose')[0]
+
+    let exampleMyModal = document.getElementById('myModal')
+
+    // Función que se encarga de manejar el estado(color) de las estrellas
+    const rate = (rating, respuesta_id, index) => {
+        respuesta_rating.set(respuesta_id, rating);
+        console.log(respuesta_rating);
+        let ul = document.getElementById("rating-" + index)
+        let items = ul.children
+        for (let i = 4; i >= 0; i--) {
+            if (4 - i < rating) {
+                items[i].classList.remove("star-white");
+                items[i].classList.add("star-yellow");
+            } else {
+                items[i].classList.remove("star-yellow");
+                items[i].classList.add("star-white");
+            }
+        }
+    }
+    
+    // Función que convierte un diccionario a un objeto json
+    function mapToObject(inputMap) {
+        let obj = {};
+        if (inputMap.size != "{{ integrantes }}") {
+            modalOpen = document.getElementById("modal-estrellita")
+            modalOpen.classList.remove("d-none")
+            modalOpen.classList.add("d-flex")
+
+            modalClose = document.getElementById("modal-estrellita-close")
+            modalClose.addEventListener("click", () => {
+                modalOpen.classList.add("d-none")
+            })
+
+            return;
+        }
+        inputMap.forEach(function (value, key) {
+            obj[key] = value
+        });
+        return obj;
+    }
+    
+    //Referencia al botón continuar
+    const continuar_btn = document.getElementById('continuar_btn');
+    //Evento para manejar cuando se hace click en el botón continuar
+    continuar_btn.onclick = function (e) {
+        /*
+        *Función que se encarga de procesar la informacion y enviar los votos de cada respuesta al servidor
+        */
+      
+        //Desabilitamos el botón para que no se pueda hacer click varias veces
+        continuar_btn.disabled = true;
+       
+        //Convertimos el diccionario a un objeto json
+        var data = mapToObject(respuesta_rating);
+       
+        //Si el objeto json es undefined, significa que falta una respuesta por votar
+        if (data == undefined) {
+            //Se vuelve a habilitar el boton continuar para que el usuario pueda votar las respuestas que faltan
+            continuar_btn.disabled = false;
+            return;
+        }
+        continuar_btn.innerHTML = "Cargando...";
+        var grupo = "{{id_grupo}}";
+        var tema = "{{id_tema}}";
+        //URL del servidor al que se enviaran los datos
+        const url = '/estudiante/Grupo/' + grupo + '/Tema/' + tema + '/VotoRespuestaPI';
+        //Cuerpo de la peticion que usamos en el servidor de python, se envia junto con la peticion 
+        const body_data = {
+            'ratings': data,
+        }
+        /*
+        * Realizamos la peticion al servidor de python
+        *  - TIPO: POST
+        *  - URL: '/estudiante/Grupo/[grupo]/Tema/[tema]/VotoRespuestaPI' donde grupo es el id_grupo y tema es id_tema
+        *  - HEADERS:
+        *      - Content-Type: application/json tipo de contenido que se envia en el cuerpo
+        *      - X-CSRFToken: '{{ csrf_token }}' token de seguridad para validar el usuario, contiene las credenciales de acceso
+        *                                        del usuario(esto solo se incluye por el modo en el que hacemos la peticion)
+        *  - BODY: JSON/OBJET, objeto json que contiene los votos de cada respuesta
+        */
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify(body_data),
+            
+        }).then(async response => {
+            //Funcion asincrona donde manejamos la respuesta del servidor despues de enviar los votos
+            var res = await response.json()
+            //Url que nos devuelve el servidor al que se redireccionara el usuario
+            var url = res.url;
+            //Reemplazamos los valores del grupo y tema en la url con los valores que tenemos actualmente en la pagina
+            url = url.replace('#$333', grupo);
+            url = url.replace('#$334', tema);
+            continuar_btn.disabled = false;
+            window.location.href = url;
+        })
+
+    }
+    
+    ExampleClose.addEventListener("click", ()=>{
+        exampleMyModal.style.display = "none"
+    })
+</script>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

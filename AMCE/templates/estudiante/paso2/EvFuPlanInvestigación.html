@@ -1,0 +1,69 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+
+{% endblock %}
+
+{% block navbar-title %}
+Plan de investigación
+{% endblock %}
+
+{% block title %}
+Plan de investigación
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand d-flex w-full justify-content-center"> Plan de investigación</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <center>
+    <h1>Fuentes seleccionadas por el equipo</h1>
+    </center>
+    <h2>Fuente(s)</h2>
+
+    {% for i in fuentesEquipoGanadoras %}
+    <ul class="mt-4">
+        <li>
+            <h6>{{ i }} </h6>
+        </li>
+        {% for j in ejemplo %}
+        {% if i.id == j.id_fuente.id %}
+        <ul>
+            <li>
+                <h6>{{ j.comentario }} </h6>
+            </li>
+        </ul>
+        {% endif%}
+        {% endfor %}
+    </ul>
+
+    {% endfor %}
+    &nbsp;
+    <center>
+        <a name="profesor" class="button-format" class="close"
+        href="{% url 'AMCE:InstruccionesP3P1' id_grupo=id_grupo id_tema=id_tema %}">Continuar al siguiente paso</a>
+    </center>
+
+</div>
+<!-- Modal a desplegar de ingresar código de clase -->
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

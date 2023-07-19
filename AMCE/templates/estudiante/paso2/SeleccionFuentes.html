@@ -1,0 +1,154 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+   
+
+
+{% block extra-css %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Capriola&display=swap%27');
+    </style>
+    <link href="{% static 'css/DragAndDrop.css'%}" rel="stylesheet"/>
+    
+{% endblock %}
+{% block navbar-title %}
+    Seleccion de Fuentes
+{% endblock %}
+{% block title %}
+    Seleccion de Fuentes
+{% endblock %}
+
+{% block header_ctxt %}
+    <div class="nav-bar-title navbar-brand d-flex w-full justify-content-center"> Busqueda de fuentes</div>
+    <a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<form id="form" method="post">
+    {% csrf_token %}
+    <div class="contenedor mt-5">
+        <div class="" id="instrucciones">
+            <h2></h> Arrastra <strong>{{noFuentes}}</strong> fuente(s) que creas que contengan información adecuada para tu investigación del tema {{temaNombre}}</h2>
+            <br>
+        </div>
+    
+        <div class="contenedor-lista">
+            <div class="block-resource-title">
+                <div style="display: flex;">
+                    <h1 style="margin-right: 10px;">Fuentes elegidas</h1>
+                    <!--div class="numberCircle">30</div-->
+                </div>
+             
+               
+                <a id="addItems" class="btn btn-add" href="{% url 'AMCE:CrearFuenteView' id_grupo=id_grupo id_tema=id_tema definirFuente=definirFuente %}" >
+                    <i class="bi bi-plus-square"></i>
+                </a>
+                
+            </div>
+            <hr>
+     
+            <div class="lista" id="fuentes-seleccionadas">
+                 <!-- Fuentes Elegidas -->
+                {% for elemento in elegidas %}
+                <div id="{{elemento.id}}" name="list" value="List Objects">
+                    <div class="recurso locked" value = "{id: {{elemento.id}}, titulo: {{elemento.titulo}}}">
+                        <div class="resource-card">
+                            <div style="display: grid;">
+                                <p class="resource">{{elemento.titulo}}</p>
+                                <p class="secondLine"> {{elemento.type_resource}}</p>
+                            </div>
+                            <div>
+                                <a href="{% url 'AMCE:FuenteUpdateView' pk=elemento.id id_grupo=id_grupo id_tema=id_tema%}">
+                                    <i class="fa fa-pencil" aria-hidden="true" style="color: #676767; padding: 10px;"></i>
+                                </a>
+
+                                <a href="{% url 'AMCE:FuenteDeleteView' pk=elemento.id id_grupo=id_grupo id_tema=id_tema%}">
+                                    <i class="fa fa-trash" aria-hidden="true" style="color: #676767; padding: 10px;"></i>
+                                </a>
+    
+                            </div>
+
+                            <div style="display:none">
+                                <input id="resource-title" type="text" value="titulooo">
+                                <input id="resource-date" type="text" value="25/02/2000">
+                                <input id="resource-author" type="text" value="Nestor Vazquez">
+                            </div>
+                               
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+    
+            </div>
+        </div>
+        <div class="contenedor-lista">
+            <div>
+                <h1>Fuentes sugeridas</h1>
+                <hr>
+            </div>
+            <div class="lista" id="fuentes-sugeridas">
+                <!-- Fuentes Sugeridas -->
+                {% for i in search_items %}
+                <div id="suggested" name="list" target="_blank" value="{{i}}">
+                    <div class="recurso">
+                        <div class="resource-card">
+                           <div style="display: grid;"">
+                                <p class="resource">{{i.title}}</p>
+                                <p class="secondLine"> Sitio: {{i.displayLink}}</p>
+                           </div>
+                            <a target="_blank" href="{{ i.link }}" >
+                                <i class="fa fa-external-link" aria-hidden="true"  style="color: #676767;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <center><button id="guardarSeleccionadas" class="button-format" >Continuar al siguiente paso</button></center>
+    </div>
+</form>
+{% endblock %}
+
+
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="font-family: 'Capriola'; position: absolute; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">&copy; ICAT | UNAM</p>
+  </footer>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/Sortable.min.js' %}"></script>
+<script>
+    let maxItems = '{{noFuentes}}';
+    let postUrl = "{% url 'AMCE:seleccionFuentes' id_grupo id_tema %}"
+    let redirectUrl = "{% url 'AMCE:instuccionesNuevaFuente' id_grupo id_tema %}"
+    let headerValues = {'X-CSRFToken': '{{ csrf_token }}'}
+</script>
+<script src="{% static 'js/SortableActions.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+</script>
+
+<script>
+// Obtenemos el botón de continuar el siguiente paso
+const continuar_btn = document.getElementById('guardarSeleccionadas');
+
+//Desactivamos el botón de continuar para que el usuario no haga multiples peticiones
+continuar_btn.onclick = function (e) {
+    e.preventDefault();
+    continuar_btn.disabled = true;
+    continuar_btn.innerHTML = "Cargando...";
+    document.getElementById("form").submit();
+}
+</script>
+
+{% endblock %}

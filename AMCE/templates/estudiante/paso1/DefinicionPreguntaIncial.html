@@ -1,0 +1,65 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+Definición de la pregunta inicial
+{% endblock %}
+
+{% block navbar-title %}
+    Definición de la pregunta inicial
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand ml-3"> Definición de la <br class="salto-de-linea"> pregunta inicial</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <div class="text-center">
+
+    </div>
+    <p>Todos los integrantes de tu equipo han votado y comentado por la pregunta que les parece mejor para plantear la
+        investigación para el tema fotosíntesis. </p>
+    <p><b>La pregunta que obtuvo más votos es: </b></p>
+    <center>
+        <h6>{{preguntaSel.id_pregunta.contenido}}</h6>
+    </center>
+
+    <p class="mt-3"><b>Los comentarios a esta pregunta fueron:</b></p>
+    <p>
+        {% for i in comentariosPregunta %}
+    <ul>
+        <li>
+            {{i.participacionEst.contenido}} <br>
+        </li>
+    </ul>
+    {% endfor %}
+    </p>
+    <center>
+        <a name="profesor" class="button-format mt-4"
+            href="{% url 'AMCE:PreguntasSecundarias'  id_grupo=id_grupo id_tema=id_tema %}">Continuar al siguente
+            paso</a>
+    </center>
+
+</div>
+<!-- Modal a desplegar de ingresar código de clase -->
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: absolute; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

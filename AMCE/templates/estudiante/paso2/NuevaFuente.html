@@ -1,0 +1,134 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+   
+
+
+{% block extra-css %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Capriola&display=swap%27');
+    </style>
+     <link href="{% static 'css/Recurso.css'%}" rel="stylesheet"/>
+{% endblock %}
+
+{% block navbar-title %}
+    Creación de fuente
+{% endblock %}
+
+{% block title %}
+    Nueva Fuente
+{% endblock %}
+
+{% block header_ctxt %}
+    <div class="nav-bar-title navbar-brand"> Nueva Fuente</div>
+    <a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<div class="row gx-1 gx-lg-1 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content">
+    <div class="text-center">
+        <h6 class="h6" style="color: rgb(123, 123, 123);">
+        Llena los campos para una nueva fuente
+        </h6>
+    </div>
+</div>
+
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+
+    <!--{{form.as_p}}-->
+
+    <div class="form-item">
+        <h5 class="input-title">Título:</h5>
+        {{form.titulo}}
+    </div>
+
+    <div class="form-item">
+        <h5 class="input-title">Autor:</h5>
+        {{form.autor}}
+    </div>
+
+
+    <div class="form-item">
+        <h5 class="input-title">Fecha de publicación:</h5>
+        {{form.fecha_publicacion}}
+    </div>
+
+    <div class="form-item">
+        <h5 class="input-title">Lugar:</h5>
+        {{form.lugar}}
+    </div>
+
+    <div class="form-item">
+        <h5 class="input-title">Tipo de fuente:</h5>
+        {{form.tipo_fuente}}
+    </div>
+
+    <!--div class="form-item">
+        <h5 class="input-title">Tipo de recurso:</h5>
+        {{form.tipo_recurso}}
+    </div-->
+
+    <div id="enlace-form" class="form-item">
+        <h5 class="input-title">Enlace:</h5>
+        {{form.enlace}}
+    </div>
+
+    <!--input id="file" type="file" name="resourceFile" class="btn"/-->
+
+    <div style="text-align:right; margin-top: 20px;">
+        <button 
+        class="btn" 
+        type="submit" 
+        style="color: white; background-color: #6FCFA1; border: 0px;   margin-top: 20px;"
+        >
+        Guardar fuente
+    </button>
+
+
+    </div>
+</form>
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="font-family: 'Capriola'; position: absolute; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">&copy; ICAT | UNAM</p>
+  </footer>
+{% endblock %}
+
+
+{% block scripts %}
+
+
+
+<script>
+    /*
+    Cambio comentado, se remueve opcion para subir archivos
+    $('#file').css({
+       'display': 'none'
+    });
+    $('#enlace-form').css({
+       'display': 'none'
+    });
+    $('select').on('change', function() {
+        let value = $(this).val();
+        console.log(value)
+        if (value == '0') {
+            $('#file').show();
+            $('#enlace-form').hide();
+        } else if(value == '1'){
+            $('#file').hide();
+            $('#enlace-form').show();
+        } else {
+            $('#file').hide();
+            $('enlace-form').hide();
+        }
+    });*/
+</script>
+
+{% endblock %}

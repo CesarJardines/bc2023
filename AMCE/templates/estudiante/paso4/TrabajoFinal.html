@@ -1,0 +1,71 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Trabajo final
+{% endblock %}
+
+{% block navbar-title %}
+Trabajo final
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>Ya casi terminas...</h1>      
+            <p>
+                Ingresa el enlace del {{entregable}} trabajado en equipo:
+            </p>
+    
+    <form id="form" method="POST" action="">
+        {% csrf_token %}
+            {{form}}
+        
+        <br>
+        &nbsp;
+        <center><button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button></center>
+        
+    </form>
+
+    <!-- <center>
+        <a class="button-format" href="{}">Continuar al siguiente paso</a>
+    </center> -->
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Obtenemos el botón de continuar el siguiente paso
+    const continuar_btn = document.getElementById('continuar_btn');
+    
+    //Desactivamos el botón de continuar para que el usuario no haga multiples peticiones
+    continuar_btn.onclick = function (e) {
+        e.preventDefault();
+        continuar_btn.disabled = true;
+        continuar_btn.innerHTML = "Cargando...";
+        document.getElementById("form").submit();
+    }
+
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

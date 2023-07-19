@@ -1,0 +1,44 @@
+ 
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    Progreso: {{ grupo }} - {{ tema }}
+{% endblock %}
+
+{% block navbar-title %}
+    Progreso: {{ grupo }} - {{ tema }}
+{% endblock %}
+
+{% block content %}
+    <div class="row gx-4 gx-lg-5 row-cols-1 justify-content">
+        <div class="col mb-2">
+            <table class="table text-center table-striped">
+                <thead class="bg-dorado-ts border-1">
+                <tr>
+                    <th scope="col">Equipo</th>
+                    <th scope="col">Paso</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for pair in equipo_paso_map %}
+                    <tr>
+                        <td>{{ pair.equipo.nombre_equipo }}</td>
+                        <td>
+                            <a href="{% url 'AMCE:ProfProgresoEquipo' id_grupo=id_grupo id_tema=id_tema id_equipo=pair.equipo.id_equipo %}">
+                                {% if pair.paso == 1 %}
+                                    Pregunta inicial
+                                {% elif pair.paso == 2 %}
+                                    Preguntas secundarias
+                                {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    .btn-secondary {
+    background-color: transparent !important ;
+    color: #6FCFA1 ;
+    font-size: 30px;
+    border-color: transparent;
+}
+
+.btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle{
+  color: blue;
+  border-color: transparent;
+  content: "\F26A" !important; 
+}
+
+
+</style>
+
+<style type="text/css">
+    
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+body{background:#edf2f9}
+.content{
+  margin: auto;
+  padding: 15px;
+  max-width: 800px;
+  text-align: center;
+}
+.dpx{
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+h1{
+  font-size:28px;
+  line-height:28px;
+  margin-bottom:15px;
+}
+label{
+  display:block;
+  line-height:40px;
+}
+.option-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: relative;
+  top: 13.33333px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  transition: all 0.15s ease-out 0s;
+  background: #cbd1d8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 0.5rem;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+}
+.option-input:hover {
+  background: #9faab7;
+}
+.option-input:checked {
+  background: #40e0d0;
+}
+.option-input:checked::before {
+  width: 40px;
+  height: 40px;
+  display:flex;
+  content: '\F26B';
+  font-size: 25px;
+  font-weight:bold;
+  position: absolute;
+  align-items:center;
+  justify-content:center;
+}
+.option-input:checked::after {
+  animation: click-wave 0.65s;
+  background: #40e0d0;
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+.option-input.radio {
+  border-radius: 50%;
+}
+.option-input.radio::after {
+  border-radius: 50%;
+}
+
+@keyframes click-wave {
+  0% {
+    height: 40px;
+    width: 40px;
+    opacity: 0.35;
+    position: relative;
+  }
+  100% {
+    height: 200px;
+    width: 200px;
+    margin-left: -80px;
+    margin-top: -80px;
+    opacity: 0;
+  }
+}
+  </style>
+
+
+{% endblock %}
+{% block title %}
+    Evaluar Fuente
+{% endblock %}
+
+{% block navbar-title %}
+Evaluación de las fuentes
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand d-flex w-full justify-content-center"> Evaluación Fuentes</div>
+<a class=""></a>
+{% endblock %}
+
+
+{% block content %}
+<center> <h1>Tema: {{temaNombre}}</h1> </center>
+<center> <h2 class="mt-5">Selecciona una fuente que consideres que cumple alguno de los criterios criterios. </h2> </center>
+<br>
+<br>
+
+        <div class="row gx-1 gx-lg-1 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content">
+                <div >
+                    <form id="form" method="post">
+                    {% csrf_token %}
+                    <div class="accordion" id="accordion">
+                    {% for i in fuentesAEvaluar %}
+                    <br>
+                    <table style="width:100%" value="{{i}}">
+                        <tr>
+                          <td> 
+
+                            <div class="grupo-card card h-100" >
+                                <!-- Detalles del grupo -->
+                                <div class="card-body p-3">
+                                    <div style="display: inline-flex;">
+                                        <p class="resource">{{i.titulo}}</p>
+                                        <p class="resource">{{i.id}}</p>
+                                        <a target="_blank" href="{{ i.enlace }}" >
+                                            <i class="fa fa-external-link" aria-hidden="true"  style="color: #676767;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+                          </td>
+                          <td>
+                            
+                                <div class="form-check" required>
+                                    <input class="btn-check" type="radio" name="voto" value="{{i.id}}" id="voto{{forloop.counter}}" data-bs-target="#retroUsuario{{forloop.counter}}" 
+                                    aria-expanded="false" aria-controls="retroUsuario{{forloop.counter}}" required>
+
+                                    <label  class="btn btn-secondary" for="voto{{forloop.counter}}">
+                                        <i class="bi bi-check-circle"></i>
+                                    </label>
+                                </div>
+                        
+                          </td>
+                        </tr>
+
+                      </table>
+                    <br>
+                    <br>
+
+                {% endfor %}
+            </div>
+                    <br>
+                    </div>
+                    {{form}}
+        </div>
+        <br>
+        <br>
+        <center><button id="continuar_btn" type="submit" class="button-format ">Continuar al siguiente paso</button></center>
+        
+    </form>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+  //JS para cambiar el color del botón de las reacciones
+  var count = 1;
+    function setColor(btn, color) {
+        var property = document.getElementById(btn);
+        if (count == 0) {
+            property.style.backgroundColor = "#458365"
+            count = 1;        
+        }
+        else {
+            property.style.backgroundColor = "#458365"
+            count = 0;
+        }
+    }
+</script>
+
+<script>
+  function callTwoFunctions(){
+    //myFunction();
+    showhide('textinput')
+    setColor('button', '#6FCFA1');
+}
+</script>
+
+<script>
+  //https://stackoverflow.com/questions/16308779/how-can-i-hide-show-a-div-when-a-button-is-clicked
+  function showhide(id) {
+       	var e = document.getElementById(id);
+       	e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+     }
+</script>
+
+
+    <!-- Core theme JS-->
+    <script src="{%static 'js/MG1.js' %}"></script>
+    <!-- JS para modal del ingresar código de clase-->
+
+  <!-- JS para bloquear botón-->
+  <script src="{%static 'js/scripts.js' %}"></script>
+
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">&copy; ICAT | UNAM</p>
+  </footer>
+{% endblock %}

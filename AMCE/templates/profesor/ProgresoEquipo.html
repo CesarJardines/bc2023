@@ -1,0 +1,245 @@
+
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+Progreso: {{ tema }} - {{ equipo }}
+{% endblock %}
+
+{% block navbar-title %}
+    Progreso: {{ tema }} - {{ equipo }}
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-sm-12">
+            <div class="accordion accordion" id="accordionFlushExample">
+
+
+                <!-- Definir problema de informacion. este muestra las preguntas iniciales y secundarias.-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <!-- Descomentar línea de abajo cuando se implemente la visualización del progreso de todos los pasos -->
+                        <!-- <button class="accordion-button {% if paso != 1 %} collapsed {% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> -->
+                        <!-- quitar esta línea --> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            1. Definir problema de información
+                        </button>
+                    </h2>
+                    <!-- Descomentar línea de abajo cuando se implemente la visualización del progreso de todos los pasos -->
+                    <!-- <div id="collapseOne" class="accordion-collapse {% if paso == 1 %} show {% else %} collapse {% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionFlushExample"> -->
+                    <!-- quitar esta línea --><div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <h3>Preguntas iniciales</h3>
+                            {% if pasos.1 %}
+                                <ul class="mb-3">
+                                    <li><h5>{{ pasos.1.0.id_pregunta }}</li></h5>
+                                </ul>
+                                {% if retros.1 %}
+                                    <h6 class="mt-3"><strong>Retroalimentación:</strong></h6>
+                                    {{ retros.1 }}
+                                {% else %}
+                                    <a class="button-format w-full mt-3" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=1 %}" >Dar retroalimentación</a>
+                                {% endif %}
+                            {% else %}
+                                <h5>El equipo no ha completado este paso.</h5>
+                            {% endif %}
+
+                            <h3>Preguntas secundarias</h3>
+                            {% if pasos.2 %}
+                                <ul class="mb-3">
+                                    {% for s in pasos.2 %}
+                                        <li><h5>{{ s.id_pregunta }}</h5></li>
+                                    {% endfor %}
+                                </ul>
+                                {% if retros.2 %}
+                                    <h6 class="mt-3"><strong>Retroalimentación:</strong></h6>
+                                    {{ retros.2 }}
+                                {% else %}
+                                    <a class="button-format w-full mt-3" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=2 %}" >Dar retroalimentación</a>
+                                {% endif %}
+                            {% else %}
+                                <h5>El equipo no ha completado este paso.</h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- 2. Buscar y evaluar fuentes -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            2. Buscar y evaluar fuentes
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            {% if paso > 2 %}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Autor</th>
+                                        <th>Fecha de publicación</th>
+                                        <th>Lugar de publicación</th>
+                                        <th>Tipo</th>
+                                    </tr>
+                                    </thead>
+                                    {% for i in fuentes %}
+                                    <tbody>
+                                        <tr>
+                                        <td>
+                                            <a target=”_blank” href="{{ i.enlace }}">
+                                                {{ i.titulo }}
+                                                <span class="material-symbols-outlined">
+                                                    open_in_new
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <td>{{ i.autor }}</td>
+                                        <td>{{ i.fecha_publicacion }}</td>
+                                        <td>{{ i.lugar }}</td>
+                                        <td>{{ i.tipo_fuente }}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                                    {% if retros.3 %}
+                                        <h6 class="mt-3"><strong>Retroalimentación:</strong></h6>
+                                        {{ retros.3 }}
+                                    {% else %}
+                                        <a class="button-format w-full mt-3" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=3 %}" >Dar retroalimentación</a>
+                                    {% endif %}
+                            {% else %}
+                                <a>
+                                    Aun no se ha completado este paso
+                                </a>
+                            {% endif %}  
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- 3. Análisis de la información -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            3. Análisis de la información
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            {% if paso_finalizado_3 %}
+                                <div class="list-group">
+                                    <!-- Este se usará para rellenar los datos -->
+                                    {% for a in analisis_info %}
+                                        <div class="list-group-item">
+                                            <h5 class="mb-1">Pregunta: <b>{{a.0}}</b></h5>
+                                            
+                                            <b class="ms-2">Fuente:</b>
+                                            <p class="ms-3 mb-1" style="color:red">
+                                                <!-- <i><b>Por definirse</b></i> -->
+                                                <a target="_blank" href="{{a.1}}">
+                                                    Enlace
+                                                    <span class="material-symbols-outlined">
+                                                        open_in_new
+                                                    </span>
+                                                </a>
+                                            </p>
+
+                                            <b class="ms-2">Referencia de la fuente:</b>
+                                            <p class="ms-3 mb-1">
+                                                <i>{{a.2}}</i>
+                                            </p>
+
+                                            <b class="ms-2">Respuesta de la fuente:</b>
+                                            <p class="ms-3 mb-1">
+                                                {{a.3}}
+                                            </p>
+
+                                            <b class="ms-2">Síntesis:</b>
+                                            <p class="ms-3 mb-1">
+                                                {{a.4}}
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                                {% if retros.4 %}
+                                    <h6 class="mt-3"><strong>Retroalimentación:</strong></h6>
+                                    {{ retros.4 }}
+                                {% else %}
+                                    <a class="button-format w-full mt-3" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=4 %}" >Dar retroalimentación</a>
+                                {% endif %}                                
+                            {% else %}
+                            <a>
+                                Aun no se ha completado este paso
+                            </a>
+                            {% endif %} 
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- 4. Sintetizar y utilizar la información -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            4. Sintetizar y utilizar la información
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            {% if paso_finalizado_4 %}
+                            <a target="_blank" href="{{contenido}}">Enlace al entregable 
+                                <span class="material-symbols-outlined">
+                                    open_in_new
+                                </span>
+                            </a>
+                                {% if retros.5 %}
+                                    <h6 class="mt-3"><strong>Retroalimentación:</strong></h6>
+                                    {{ retros.5 }}
+                                {% else %}
+                                    <a class="button-format w-full mt-3" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=5 %}" >Dar retroalimentación</a>
+                                {% endif %}
+                            {% else %}
+                            <a>
+                                Aun no se ha completado este paso
+                            </a>
+                            {% endif %}    
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Retroalimentación general del proceso de investigación -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Retroalimentación general del proceso de investigación
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse show" aria-labelledby="headingSix" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            {% if retros.6 %}
+                                <h6><strong>Retroalimentación:</strong></h6>
+                                {{ retros.6 }}
+                            {% else %}
+                                <a class="button-format w-full" href="{% url 'AMCE:ProfRetro' id_grupo=id_grupo id_tema=id_tema id_equipo=equipo.id_equipo paso=6 %}" >Dar retroalimentación</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+<!-- 
+    Este template base nos una página con sidebar y navbar, se usa para
+    generar las vistas base de profesor y estudiante
+-->
+
+{% block extra-css %}{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {% block navbar %}
+        <nav class="navbar navbar-dark sticky-top w-100">
+            <div class="ms-2 navbar-text d-none d-sm-none d-md-none d-lg-block"></div>
+            <button class="ms-2 navbar-toggler d-block d-sm-block d-md-block d-lg-none" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-brand nav-bar-title abs">
+                {% block navbar-title %}
+                    Título
+                {% endblock %}
+            </div>
+            {% block navbar-btn %}
+                <div class="navbar-text ml-auto nav-bar-btn me-2"></div>
+            {% endblock %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-4 mb-2 mb-lg-0">
+                    {% block nav-links %}
+                    {% endblock %}
+                </ul>
+            </div>
+        </nav>
+    {% endblock %}
+    
+    <!-- Page content-->
+    {% if messages %}
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert {{ message.tags }}" {% else %} class="alert alert-info" {% endif %}>
+            <button type="button" class="close" data-dismiss="alert"> × </button>
+            <strong>{{message}}</strong>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div id="main-container" class="container-fluid">
+        <div class="row">
+            <div class="d-none d-lg-block d-xl-block col-1 position-fixed menu-lateral" id="sticky-sidebar">
+                <a href="{% block sidebar-logotipo-url %}{% endblock %}">
+                    <img src="{% static 'assets/images/logotipo_busqueda.svg'%}" alt="">
+                </a>
+                <div class="mt-5">
+                    {% block sidebar-links %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-md-10 col-lg-9 offset-md-1 mt-5 menu-lateral-margin-left" id="main"  style="min-width: 300px;">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

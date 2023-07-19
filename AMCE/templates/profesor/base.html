@@ -1,0 +1,73 @@
+{% extends "base/base_sidebar.html" %}
+
+{% load static %}
+
+{% block extra-css %}{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block navbar-title %}{% endblock %}
+
+{% block nav-links %}
+    <li class="nav-item {% block grupos-active %}{% endblock %}">
+        <a class="nav-link" aria-current="page"
+        href="{% url 'AMCE:ProfMisGrupos' %}">Mis Grupos</a>
+    </li>
+    <li class="nav-item {% block temas-active %}{% endblock %}">
+        <a class="nav-link" aria-current="page"
+        href="{% url 'AMCE:ProfMisTemas' %}">Mis Temas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page"
+        href="{% url 'logout' %}">Cerrar Sesión</a>
+    </li>
+{% endblock %}
+
+{% block sidebar-logotipo-url %}
+    {% url 'AMCE:ProfMisGrupos' %}
+{% endblock %}
+
+{% block sidebar-links %}
+    <div class=" menu-lateral-opciones">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <br>
+        <p>
+            {{current_user.first_name}} <br> 
+            {{current_user.last_name}}
+        </p>
+        <br>
+        <a href="{% url 'AMCE:ProfMisGrupos' %}" class="menu-lateral-opciones">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+                <path
+                    d="M10.118 16.064c2.293-.529 4.428-.993 3.394-2.945-3.146-5.942-.834-9.119 2.488-9.119 3.388 0 5.644 3.299 2.488 9.119-1.065 1.964 1.149 2.427 3.394 2.945 1.986.459 2.118 1.43 2.118 3.111l-.003.825h-15.994c0-2.196-.176-3.407 2.115-3.936zm-10.116 3.936h6.001c-.028-6.542 2.995-3.697 2.995-8.901 0-2.009-1.311-3.099-2.998-3.099-2.492 0-4.226 2.383-1.866 6.839.775 1.464-.825 1.812-2.545 2.209-1.49.344-1.589 1.072-1.589 2.333l.002.619z" />
+            </svg>
+            <p class="text-center fz-14">Mis Grupos</p>
+        </a>
+    </div>
+    <div class="mt-5">
+        <a href="{% url 'AMCE:ProfMisTemas' %}" class="menu-lateral-opciones">
+            <svg width="35" height="35" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                fill-rule="evenodd" clip-rule="evenodd">
+                <path
+                    d="M14 0v10l2-1.518 2 1.518v-10h4v24h-17c-1.657 0-3-1.343-3-3v-18c0-1.657 1.343-3 3-3h9zm6 20h-14.505c-1.375 0-1.375 2 0 2h14.505v-2z" />
+            </svg>
+            <p class="text-center mt-2 fz-14">Mis Temas</p>
+        </a>
+    </div>
+    <div class="position-absolute menu-lateral-opciones" style="bottom: 6rem; left: 0; right: 0;">
+        <a href="{% url 'logout' %}" class="menu-lateral-opciones">
+            <svg width="35" height="35" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                fill-rule="evenodd" clip-rule="evenodd">
+                <path d="M24 22h-20v-7h2v5h16v-16h-16v5h-2v-7h20v20zm-13-11v-4l6 5-6 5v-4h-11v-2h11z" />
+            </svg>
+            <p class="text-center mt-2 fz-14">Cerrar Sesión</p>
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block scripts %}{% endblock %}

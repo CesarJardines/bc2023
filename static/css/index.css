@@ -1,0 +1,28 @@
+body {
+    /* background: url("../assets/images/fondo_inicio.png") no-repeat center center fixed;  */
+    background: #0fa5a5 !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container{
+    height: 100%;
+}
+
+#logo{
+    width: 100%;
+}
+
+#logo-container img{
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.errorlist{
+    list-style: none;
+}

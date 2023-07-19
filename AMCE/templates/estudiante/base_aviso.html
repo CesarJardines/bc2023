@@ -1,0 +1,29 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block extra-css %}{% endblock %}
+
+{% block title %}
+    Aviso
+{% endblock %}
+
+{% block navbar-title %}
+    Aviso
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-sm-10 text-center wait-warning">
+            <h1><b>Aviso</b></h1>
+            <p>
+                {% block aviso %}{% endblock %}
+            </p>
+            <center>
+                <a class="button-format" href="{% url 'AMCE:EstMisGrupos' %}">Entendido</a>
+            </center>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}{% endblock %}

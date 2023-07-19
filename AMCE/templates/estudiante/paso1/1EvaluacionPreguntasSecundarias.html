@@ -1,0 +1,45 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Evaluación preguntas secundarias
+{% endblock %}
+
+{% block navbar-title %}
+    Evaluación preguntas secundarias
+{% endblock %}
+
+{% block content %}
+<center>
+    <h1 class="mt-5">¡Enhorabuena!</h1>
+</center>
+<div class="text-center container-content">
+    <p>Todos los integrantes de tu equipo han planteado su preguntas secundarias. Ahora es momento de evaluarlas y
+        escoger aquellas que consideres que cumple con alguno o varios los puntos siguientes:</p>
+
+    <ul>
+        <li>
+            <b>Me gusta:</b> Si crees que la pregunta es clara y es una pregunta más especifica que la pregunta inicial.
+            <br>
+        </li>
+        <li>
+            <b> No le entiendo:</b> Si crees que la pregunta es confusa o que podría ser mejor redactada. <br>
+        </li>
+        <li>
+            <b> No me gusta:</b> Si consideras que la pregunta no está relacionada al tema o bien que es una pregunta
+            sin sentido.<br>
+        </li>
+    </ul>
+
+</div>
+<center> <a name="profesor" class="button-format" class="close"
+        href="{% url 'AMCE:EvaluacionPreSec'  id_grupo=id_grupo id_tema=id_tema %}" id="submit-form">Continuar al siguiente paso</a></center>
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}

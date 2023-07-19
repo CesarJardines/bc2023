@@ -1,0 +1,29 @@
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Error 404 - Página no encontrada
+{% endblock %}
+
+{% block navbar-title %}
+    Error 404 - Página no encontrada
+{% endblock %}
+
+{% block navbar-btn %}
+    <a class="navbar-nav me-2 nav-bar-btn" href="{% url 'AMCE:ProfCrearGrupo' %}" id="asignar_tema"> <img
+        src="{% static 'assets/images/bt_grupos.png'%}"></a>
+{% endblock %}
+
+{% block grupos-active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Error 404</h1>
+        <p class="lead">La página que solicitaste no está disponible </p>
+        <p>Revisa la URL o ve a la <a href="{% url 'AMCE:index' %}">página principal</a>.</p>
+        <p><span class="emoji-error">&#128559;</span></p>
+    </div>
+{% endblock %}

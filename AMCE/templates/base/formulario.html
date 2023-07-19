@@ -1,0 +1,38 @@
+<!-- 
+    Para poder incluir un formulario se tiene que incluir el siguiente html:
+    
+    <form method="post" action="" class="">
+        AQUÍ EL INCLUDE
+        <button type="submit" class="button-format" id="submit-form" >CONTENIDO DEL BOTÓN</button>
+    </form>
+-->
+
+{% csrf_token %}
+{% for error in form.non_field_errors %} 
+    <div class="form-alert alert alert-danger mb-0">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+
+{% for field in form %}
+    <div class="fieldWrapper mt-3">
+        {% if field.errors %}
+            <div class="field-error">
+                {{ field.label_tag }}
+            </div>
+        {% else %}
+            {{ field.label_tag }}
+        {% endif %}
+        
+        {{ field }}
+        
+        {% for error in field.errors %} 
+            <div class="field-error fz-14">
+                    <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}

@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block extra-css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css'%}">
+{% endblock %}
+
+{% block title %}
+    Inicio de Sesión
+{% endblock %}
+
+{% block body %}
+    <div class="position-relative">
+        <div class="index-container" style="width: 70%;">
+            <div class="d-flex flex-column justify-content-center" style="height: 88vh; width: 100%;">
+                <div id="logo-container" class="align-middle">
+                    <img id="logo" src="{% static 'assets/images/logo_busqueda.png'%}">
+                </div>
+                <div class="">
+                    <form id="login" method="post">
+                        {% csrf_token %}
+                        {% for error in form.non_field_errors %} 
+                            <div class="form-alert alert alert-danger mb-0">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+        
+                        {% for field in form %}
+                            <div class="fieldWrapper mt-3">
+                                {% for error in field.errors %} 
+                                    <div class="form-alert alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                                {{ field }}
+                                {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <a class="text-dark text-decoration-underline fw-500 mt-3" href="{% url 'AMCE:reset_password' %}">¿Olvidaste tu contraseña?</a>
+                        <div class="d-flex justify-content-between space-between align-items-center gap-5 mt-3">
+                            <a href="{% url 'AMCE:signup' %}" class="text-dark text-decoration-underline fw-500" id="submit-form">Regístrate</a>
+                            <button type="submit" class="btn btn-outline-dark btn-block button-format mw-90 rounded-0 fw-500" id="submit-form"
+                                id="submit-form">Ingresar</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        footer{
+            padding-left: 0px;
+        }
+    </style>
+{% endblock %}

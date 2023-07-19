@@ -1,0 +1,140 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    .btn-secondary {
+        background-color: #00d0a0 !important;
+        color: #458365;
+    }
+</style>
+
+
+{% endblock %}
+{% block title %}
+Análisis pregunta inicial
+{% endblock %}
+
+{% block navbar-title %}
+    Análisis Pregunta Inicial
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand ml-3 d-flex w-full justify-content-center"> Análisis pregunta inicial</div>
+<a class=""></a>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-content">
+    <center>
+        <h1 class="mt-4">Tema: {{temaPreguntaInicial.nombre_tema}}</h1>
+    </center>
+    <p class="mt-4"> Vota y comenta por la pregunta inicial que te parezca mejor para plantear la investigación de
+        tu equipo </p>
+
+    
+        <div>
+            <form id="form" method="post">
+                {% csrf_token %}
+                <div class="accordion" id="accordion">
+                    {% for i in numTotalPartici %}
+
+                    <table style="width:100%" class="mt-4">
+                        <tr>
+                            <td>
+                                {{i.id_pregunta.contenido}}
+                            </td>
+                            <td>
+
+                                <div class="form-check">
+                                    <input class="btn-check" type="radio" name="voto"
+                                        value="{{i.id_pregunta.estudiante_part.user_estudiante.id}}"
+                                        id="voto{{forloop.counter}}" data-bs-toggle="collapse"
+                                        data-bs-target="#retroUsuario{{forloop.counter}}" aria-expanded="false"
+                                        aria-controls="retroUsuario{{forloop.counter}}" required>
+                                    <label class="btn btn-secondary" for="voto{{forloop.counter}}">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="retroUsuario{{forloop.counter}}" class="accordion-collapse collapse hide"
+                                    data-bs-parent="#accordion">
+                                    <p>Ingresa tu comentario</p>
+                                    <input type="text" aria-label="Small" aria-describedby="inputGroup-sizing-md"
+                                        name="comentario" required>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </div>
+                &nbsp;
+                <center> <button id="continuar_btn" type="submit" class="button-format btn-2">Continuar al siguiente paso</button> </center>    
+        
+        
+            </form>
+
+        </div>
+    
+    
+        
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    //JS para cambiar el color del botón de las reacciones
+    var count = 1;
+    function setColor(btn, color) {
+        var property = document.getElementById(btn);
+        if (count == 0) {
+            property.style.backgroundColor = "#458365"
+            count = 1;
+        }
+        else {
+            property.style.backgroundColor = "#458365"
+            count = 0;
+        }
+    }
+</script>
+
+<script>
+    function callTwoFunctions() {
+        //myFunction();
+        showhide('textinput')
+        setColor('button', '#6FCFA1');
+    }
+</script>
+
+<script>
+    //https://stackoverflow.com/questions/16308779/how-can-i-hide-show-a-div-when-a-button-is-clicked
+    function showhide(id) {
+        var e = document.getElementById(id);
+        e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+    }
+</script>
+
+
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+<!-- JS para bloquear botón-->
+<script src="{%static 'js/scripts.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

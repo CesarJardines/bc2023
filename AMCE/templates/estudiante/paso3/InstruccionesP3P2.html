@@ -1,0 +1,40 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Instrucciones
+{% endblock %}
+
+{% block navbar-title %}
+Instrucciones
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1 class="text-center">¡A trabajar!</h1>
+    En el paso anterior leíste los contenidos de las fuentes disponibles para poder localizar y 
+    seleccionar de ellas los datos que te pudieran ayudar a responder las preguntas secundarias. 
+    <br><br>
+
+    Ahora, deberás leer, comprender y comparar la información que seleccionaste de diversas las 
+    diversas fuentes, para evaluar si es coherente, pertinente, suficiente e imparcial para 
+    responder sus preguntas. 
+    <br><br>
+
+    Además escribirás con <u><b>tus propias palabras</b></u> una respuesta completa y concreta a cada una de 
+    las preguntas secundarias. Esto es para poner a prueba el nivel de comprensión que alcanzaste sobre el tema.
+
+    <center class="mt-5">
+        <a name="profesor" class="button-format"
+            href="{% url 'AMCE:RespuestaSintetizada'  id_grupo=id_grupo id_tema=id_tema id_pregunta_id=id_pregunta_id%}" id="submit-form">Continuar al
+            siguente paso</a>
+    </center>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+
+{% endblock %}

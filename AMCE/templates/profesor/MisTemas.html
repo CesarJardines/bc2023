@@ -1,0 +1,41 @@
+{% extends "profesor/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Mis Temas
+{% endblock %}
+
+{% block navbar-title %}
+    Mis Temas
+{% endblock %}
+
+{% block navbar-btn %}
+<a class="navbar-nav me-2 nav-bar-btn" href="{% url 'AMCE:ProfCrearTema' %}" id="asignar_tema"> <img
+    src="{% static 'assets/images/bt_temas.svg'%}"></a>
+{% endblock %}
+
+{% block temas-active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content mx-3 group-card-format">
+        <!--Temas-->
+        {% for t in temas %}
+        <div class="col mb-4">
+            <div class="card no-hover h-100">
+                <!-- Detalles del tema -->
+                <div class="card-body p-4">
+                    <div class="mis-temas">
+                        <h2 class="m-0 text-uppercase ">{{t.nombre_tema}}</h2>
+                        <a class="" href="{% url 'AMCE:ProfEditarTema' id_tema=t.id_tema %}">
+                            <img class="mis-grupos-img" src="{% static 'assets/images/bt_editar.png'%}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

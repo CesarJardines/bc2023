@@ -1,0 +1,53 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Instrucciones
+{% endblock %}
+
+{% block navbar-title %}
+Instrucciones
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>¡Enhorabuena!</h1>
+    <br>
+
+    <p>
+        A continuación deberás contestar la pregunta inicial planteada al inicio de la investigación, 
+        asegúrate de responder con base en las respuestas dadas a las preguntas secundarias.
+    </p>
+
+    <br>
+
+    <center>
+        <a class="button-format" href="{% url 'AMCE:ResponderPreguntaInicial' id_tema=id_tema id_grupo=id_grupo %}">Continuar al siguiente paso</a>
+    </center>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

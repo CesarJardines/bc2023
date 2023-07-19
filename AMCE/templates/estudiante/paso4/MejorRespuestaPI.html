@@ -1,0 +1,62 @@
+{% extends "estudiante/base.html" %}
+
+{% load static %}
+{% block extra-css %}
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+{{mensaje_titulo}}
+{% endblock %}
+
+{% block navbar-title %}
+{{mensaje_titulo}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-content">
+    <h1>{{mensaje_titulo}}</h1>
+    <br>
+
+    <div>
+        {% for r in respuestas %}
+        <div>
+            <div>
+                <b>Respuesta {{ forloop.counter }}:</b>
+                <!-- Mostramos el contenido del objeto Respuesta. -->
+                <p class="m-0 mytextalign">{{r}}</p>
+                <br>
+                <b>Número de votos: {{respuesta_mayor_votos}}</b>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <br>
+    <!-- http://localhost:8000/estudiante/Grupo/56xjbvp/Tema/1/InstruccionesGeneraPDF -->
+    <center>
+        <a class="button-format" href="{% url 'AMCE:InstruccionesGeneraPDF' id_tema=id_tema id_grupo=id_grupo %}">Continuar al siguiente paso</a>
+    </center>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<script src="{%static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

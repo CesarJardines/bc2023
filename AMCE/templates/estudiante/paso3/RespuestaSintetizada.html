@@ -1,0 +1,270 @@
+{% extends "estudiante/base_formpage.html" %}
+
+{% load static %}
+{% load filters%}
+
+{% block title %}
+Paso3
+{% endblock %}
+
+{% block navbar-title %}
+    Sintetizando Respuestas
+{% endblock %}
+
+{% block header_ctxt %}
+<div class="nav-bar-title navbar-brand"> Sintetizando Respuestas</div>
+<a class=""></a>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .mybox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px dashed black;
+        padding: 10px;
+    }
+
+    .mysubbox-1 {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        padding: 5px;
+        font-size:8px;
+    }
+    .mysubbox {
+        /* height: 90px; */
+        /* line-height: 90px; */
+        border: 1px solid black;
+        padding: 5px;
+        font-size:8px;
+    }
+
+    .mybold {
+        font-weight: bold;
+        font-size:8px
+    }
+
+    .form-control-xs {
+        height: calc(1em + .375rem + 2px) !important;
+        padding: .125rem .25rem !important;
+        font-size: .75rem !important;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+
+    .ExampleClose{
+        font-size: 16px;
+        float: none;
+        display: flex;
+        justify-content: none;
+        color: rgb(0, 0, 0);
+        background-color: #00d0a0;
+        border: 0px;
+        border-radius: 0;
+        padding: 10px 26px;
+        text-decoration: none;
+        width: max-content;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
+
+<center>
+    <h1> Tema: {{ temaNombre }} </h1>
+    <h2> Sintetiza tus respuestas a las preguntas secundarias</h2>
+</center>
+
+<div class="container-content">
+    <div class="text-center mb-3">
+        <h3 class="popup h mt-3" id="ExampleMyBtn">Ejemplo</h3>
+    </div>
+
+
+    <form id="form" method="POST" action="">
+        {% csrf_token %}
+            <center><h3>{{ preguntaSec }}</h3></center>
+            <p><b>Respuesta extraída de la fuente:</b></p>
+            <p>{{respuesta_direc_fuente}}</p>
+            <p><b>Fuente:</b></p>
+            <p>{{fuente}}</p>
+            <p><b>Referencia:</b></p>
+            <p>{{referencia_fuente}}</p>
+            {{form}}
+            &nbsp;
+            <center><button id="continuar_btn" type="submit" class="button-format">Continuar al siguiente paso</button></center>
+        
+    </form>
+</div>
+
+
+<!-- Modal para desplegar el ejemplo -->
+<div id="exampleMyModal" class="exampleModal modal">
+    <!-- contenido del modal (ingresar código) -->
+    <div class="modal-content" style=" margin-top: 150px;">
+        <div class="container">
+            
+
+                    <div class="mybox">
+                        <center style="font-size:10px">
+                            Tema: Ciclones tropicales 
+                            <br>
+                            Responde las preguntas secundarias
+                        </center>
+
+                        <center style="font-size:10px">
+                            <b>¿Qué es un Ciclón Tropical y cuáles son sus componentes?</b>
+                        </center>
+
+                        <!-- Respuesta a la pregunta (primer cuadro de texto) -->
+                        <div class="mybold">
+                            Respuesta extraída de la fuente:
+                        </div>
+                        <div class="mysubbox-1">
+                            <b>a)</b> Los ciclones tropicales son uno de los fenómenos naturales que provocan mayores pérdidas económicas cada año, debido al incremento de los asentamientos humanos en zonas de riesgo y a la degradación ambiental producida por el hombre. Sin embargo, las lluvias que generan los ciclones poseen grandes beneficios ya que se recargan los mantos acuíferos y las presas retienen una cantidad de agua, que es utilizada en las zonas áridas y semiáridas de México, así como para el consumo humano, la agricultura y la generación de energía.<br>
+                                <b>b)</b> Es una masa de aire cálida y húmeda con vientos fuertes que giran en forma de espiral alrededor de una zona central. En el hemisferio norte giran en sentido contrario a las manecillas del reloj. Se forman en el mar, cuando la temperatura es superior a los 26o C.
+                            El poder destructivo de los ciclones tropicales, obliga a que se tomen medidas especiales de seguridad, dado que son fenómenos que se pueden monitorear y pronosticar su trayectoria.<br>
+                            
+                        </div>
+                        <!-- Fuentes (menú de tipo select deshabilitado) -->
+                        <div class="mybold">
+                            Fuente:
+                        </div>
+                        <div style="font-size: 8px; padding-bottom: 5px; padding-top: 5px;">
+                            ¿129-FOLLETOCICLONESTROPICALES.PDF
+                        </div>
+                        <!-- Referencia de la fuente (segundo cuadro de texto) -->
+                        <div class="mybold">
+                            Referencia de la fuente:
+                        </div>
+                        <div class="mysubbox-1">
+                            Página 1 - párrafo 1 y 2 - renglón 1
+                        </div>
+                        <!-- Respuesta a la pregunta (primer cuadro de texto) -->
+                        <div style="font-size:8px;">
+                            Respuesta Sintetizada:
+                        </div>
+                        <div class="mysubbox">
+                        
+                            Los ciclones tropicales son un fenómeno natural que pueden causar grandes pérdidas económicas debido a la creciente urbanización en zonas de riesgo y la degradación ambiental. Sin embargo, las lluvias que generan pueden recargar los mantos acuíferos y abastecer a las zonas áridas y semiáridas de México. Los ciclones tropicales son una masa de aire cálida y húmeda con vientos fuertes que giran en forma de espiral alrededor de una zona central, formándose en el mar cuando la temperatura es superior a 26o C. A pesar de que tienen un gran poder destructivo, se pueden monitorear y pronosticar su trayectoria, lo que obliga a tomar medidas especiales de seguridad para evitar mayores daños. <br>
+                            
+                        </div>
+                    </div>
+
+                    <div class="mybox">
+                        <center style="font-size:10px">
+                            Tema: Ciclones tropicales 
+                            <br>
+                            Responde las preguntas secundarias
+                        </center>
+
+                        <center style="font-size:10px">
+                            <b>¿Cuáles son las etapas de formación de un Ciclón Tropical?</b>
+                        </center>
+
+                        <!-- Respuesta a la pregunta (primer cuadro de texto) -->
+                        <div class="mybold">
+                            Respuesta extraída de la fuente:
+                        </div>
+                        <div class="mysubbox-1" style="font-size:10px" >
+                            
+                            <ul style="font-size:10px"> La evolución de un ciclón tropical puede llegar a desarrollar cuatro etapas:
+                                <li style="font-size:10px"> Perturbación Tropical: <br> 
+                                    Zona de inestabilidad atmosférica asociada a la existencia de un área de baja presión, la cual propicia la generación incipiente de vientos convergentes cuya organización eventual provoca el desarrollo de una depresión tropical. </li> <br>
+                                <li style="font-size:10px"> Depresión Tropical: <br>
+                                    Los vientos se incrementan en la superficie, producto de la existencia de una zona de baja presión. Dichos vientos alcanzan una velocidad sostenida menor o igual a 62 kilómetros por hora.  <br>
+                                <li style="font-size:10px"> Tormenta Tropical: <br>
+                                    El incremento continuo de los vientos provoca que éstos alcancen velocidades sostenidas entre los 63 y 118 km/h. Las nubes se distribuyen en forma de espiral. Cuando el ciclón alcanza esta intensidad se le asigna un nombre preestablecido por la Organización Meteorológica Mundial. <br>
+                                <li style="font-size:10px"> Huracán: <br>
+                                    Es un ciclón tropical en el cual los vientos máximos sostenidos alcanzan o superan los 119 km/h. El área nubosa cubre una extensión entre los 500 y 900 km de diámetro, produciendo lluvias intensas. El ojo del huracán alcanza normalmente un diámetro que varía entre 24 y 40 km, sin embargo, puede llegar hasta cerca de 100 km. En esta etapa el ciclón se clasifica por medio de la escala Saffir-Simpson, como se indica en la tabla. <br>
+
+
+
+                            </ul>
+                        </div>
+                        <!-- Fuentes (menú de tipo select deshabilitado) -->
+                        <div class="mybold">
+                            Fuente:
+                        </div>
+                        <div style="font-size: 8px; padding-bottom: 5px; padding-top: 5px;">
+                            Etapas de Evolución - Servicio Meteorológico Nacional
+                        </div>
+                        <!-- Referencia de la fuente (segundo cuadro de texto) -->
+                        <div class="mybold">
+                            Referencia de la fuente:
+                        </div>
+                        <div class="mysubbox-1">
+                            Párrafo 1 - renglón 1
+                        </div>
+                        <!-- Respuesta a la pregunta (primer cuadro de texto) -->
+                        <div style="font-size:8px;">
+                            Respuesta Sintetizada:
+                        </div>
+                        <div class="mysubbox">
+                        
+                            Los ciclones tropicales pasan por cuatro etapas en su evolución: perturbación tropical, depresión tropical, tormenta tropical y huracán. Cada etapa está definida por la velocidad del viento y la organización de las nubes. El huracán es la etapa más intensa, con vientos sostenidos que superan los 119 km/h y un diámetro nuboso que puede llegar a ser de hasta 900 km. La clasificación del huracán se realiza mediante la escala Saffir-Simpson.
+                            
+                        </div>
+                        
+                        &nbsp;
+                        <center><button type="button" class="ExampleClose" >Entendido</button></center>
+                    
+                    </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    let exampleMyModal = document.getElementById('exampleMyModal')
+
+    let exampleModal = document.getElementsByClassName('exampleModal')[0]
+
+    let ExampleMyBtn = document.getElementById('ExampleMyBtn')
+
+    let ExampleClose = document.getElementsByClassName('ExampleClose')[0]
+
+    // When the user clicks on the button, open the modal 
+
+    ExampleMyBtn.addEventListener("click", ()=>{
+        exampleModal.style.display = "block";
+    })
+
+    ExampleClose.addEventListener("click", ()=>{
+        exampleMyModal.style.display = "none"
+    })
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == exampleMyModal) {
+        exampleModal.style.display = "none";
+    }
+    }
+    // Get the modal
+    var modal = document.getElementById('id01');
+    // Obtenemos el botón de continuar el siguiente paso
+    const continuar_btn = document.getElementById('continuar_btn');
+    
+    //Desactivamos el botón de continuar para que el usuario no haga multiples peticiones
+    continuar_btn.onclick = function (e) {
+        e.preventDefault();
+        continuar_btn.disabled = true;
+        continuar_btn.innerHTML = "Cargando...";
+        document.getElementById("form").submit();
+    }
+</script>
+<!-- Core theme JS-->
+<script src="{%static 'js/MG1.js' %}"></script>
+<!-- JS para modal del ingresar código de clase-->
+<!-- <script src="{%static 'js/modal.js' %}"></script> -->
+{% endblock %}
+
+{% block footer %}
+<footer style=" margin-left: 0px;">
+    <p style="position: relative; width:100%; left: 0px; bottom: 0; width: 100%;  text-align: center; color: black;">
+        &copy; ICAT | UNAM</p>
+</footer>
+{% endblock %}

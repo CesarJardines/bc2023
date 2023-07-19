@@ -1,0 +1,28 @@
+#temas-tab, #equipos-tab{
+    margin-bottom: 0;
+    color: white;
+    font-weight: 500;
+}
+  
+#temas-tab{
+    background-color: #547d7d;
+}
+#equipos-tab{
+    background-color: #7cb5b5;
+}
+
+.tab-content:has(#temas-tab.active){
+    background-color: #547d7d;
+}
+
+.tab-content:has(#equipos-tab.active){
+    background-color: #7cb5b5;
+}
+
+.h4{
+    margin-bottom: 0px;
+}
+
+.button-format{
+    width: 30%;
+}
